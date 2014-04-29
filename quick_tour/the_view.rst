@@ -1,11 +1,11 @@
-The View
+Layer Tampilan (View)
 ========
 
-After reading the first part of this tutorial, you have decided that Symfony2
-was worth another 10 minutes. In this second part, you will learn more about
-`Twig`_, the fast, flexible, and secure template engine for PHP. Twig makes your
-templates more readable and concise; it also makes them more friendly for web
-designers.
+Setelah membaca bagian pertama dari tutorial ini, kamu pasti beranggapan 
+sebaiknya kita lanjutkan tutorial Symfony2 ini. Dalam bagian yg kedua ini,
+kita akan mempelajari tentang `Twig`_, sebuah pengolah template PHP yg 
+cepat, fleksibel dan aman. Twig membuat template yang kita buat lebih mudah
+dibaca, ringkas, dan mudah dipahami oleh web desainer.
 
 Getting familiar with Twig
 --------------------------
