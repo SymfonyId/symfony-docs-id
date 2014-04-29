@@ -1,11 +1,10 @@
-The Architecture
-================
+Arsitektur
+==========
 
-You are my hero! Who would have thought that you would still be here after the
-first three parts? Your efforts will be well rewarded soon. The first three
-parts didn't look too deeply at the architecture of the framework. Because it
-makes Symfony2 stand apart from the framework crowd, let's dive into the
-architecture now.
+Anda adalah pahlawanku! Siapa sangka anda masih di sini setelah tiga bagian pertama?
+Usaha Anda akan segera dihargai. Tiga bagian pertama tampak tidak terlalu
+dalam pada arsitektur framework. Karena itu membuat Symfony2 berdiri terpisah 
+dari kerumunan framework, mari kita masuk ke dalam arsitektur sekarang.
 
 Understanding the Directory Structure
 -------------------------------------
