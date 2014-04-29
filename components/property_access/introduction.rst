@@ -8,6 +8,10 @@ The PropertyAccess Component
     The PropertyAccess component provides function to read and write from/to an
     object or array using a simple string notation.
 
+.. versionadded:: 2.2
+    The PropertyAccess component is new to Symfony 2.2. Previously, the
+    ``PropertyPath`` class was located in the Form component.
+
 Installation
 ------------
 
@@ -308,39 +312,6 @@ see `Enable other Features`_.
     $accessor->setValue($person, 'wouter', array(...));
 
     echo $person->getWouter(); // array(...)
-
-Checking Property Paths
------------------------
-
-.. versionadded:: 2.5
-    The methods
-    :method:`PropertyAccessor::isReadable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isReadable>`
-    and
-    :method:`PropertyAccessor::isWritable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isWritable>`
-    methods were added in Symfony 2.5.
-
-When you want to check whether :method:`PropertyAccessor::getValue<Symfony\\Component\\PropertyAccess\\PropertyAccessor::getValue>`
-can safely be called without actually calling that method, you can use
-:method:`PropertyAccessor::isReadable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isReadable>`
-instead::
-
-    $person = new Person();
-
-    if ($accessor->isReadable($person, 'firstName') {
-        // ...
-    }
-
-The same is possible for :method:`PropertyAccessor::setValue<Symfony\\Component\\PropertyAccess\\PropertyAccessor::setValue>`:
-Call the
-:method:`PropertyAccessor::isWritable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isWritable>`
-method to find out whether a property path can be updated. In the third
-argument, you should pass the value that you want to write::
-
-    $person = new Person();
-
-    if ($accessor->isWritable($person, 'firstName', 'Wouter') {
-        // ...
-    }
 
 Mixing Objects and Arrays
 -------------------------

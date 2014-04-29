@@ -410,6 +410,11 @@ would be ``/images/logo.png?version=5``.
 profiler
 ~~~~~~~~
 
+.. versionadded:: 2.2
+    The ``enabled`` option was introduced in Symfony 2.2. Previously, the profiler
+    could only be disabled by omitting the ``framework.profiler`` configuration
+    entirely.
+
 .. _profiler.enabled:
 
 enabled

@@ -68,6 +68,10 @@ The route is simple:
 
         return $collection;
 
+.. versionadded:: 2.2
+    The ``path`` option is new in Symfony 2.2, ``pattern`` is used in older
+    versions.
+
 The path defined by the ``blog_show`` route acts like ``/blog/*`` where
 the wildcard is given the name ``slug``. For the URL ``/blog/my-blog-post``,
 the ``slug`` variable gets a value of ``my-blog-post``, which is available
@@ -700,6 +704,10 @@ be accomplished with the following route configuration:
 
         return $collection;
 
+.. versionadded:: 2.2
+    The ``methods`` option is added in Symfony 2.2. Use the ``_method``
+    requirement in older versions.
+
 Despite the fact that these two routes have identical paths (``/contact``),
 the first route will match only GET requests and the second route will match
 only POST requests. This means that you can display the form and submit the
@@ -711,6 +719,9 @@ form via the same URL, while using distinct controllers for the two actions.
 
 Adding a Host Requirement
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Host matching support was introduced in Symfony 2.2
 
 You can also match on the HTTP *host* of the incoming request. For more
 information, see :doc:`/components/routing/hostname_pattern` in the Routing
@@ -1152,6 +1163,9 @@ from the new routing resource.
 
 Adding a Host Requirement to Imported Routes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Host matching support was introduced in Symfony 2.2
 
 You can set the host regex on imported routes. For more information, see
 :ref:`component-routing-host-imported`.

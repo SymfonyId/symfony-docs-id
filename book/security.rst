@@ -183,9 +183,8 @@ can access ``/foo`` without being prompted to authenticate.
 
 .. tip::
 
-    You can also match a request against other details of the request (e.g.
-    host, method). For more information and examples read
-    :doc:`/cookbook/security/firewall_restriction`.
+    You can also match a request against other details of the request (e.g. host).
+    For more information and examples read :doc:`/cookbook/security/firewall_restriction`.
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
@@ -1084,24 +1083,18 @@ fine-grained enough in certain cases. When necessary, you can easily force
 authorization from inside a controller::
 
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
         if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException('Unable to access this page!');
+            throw new AccessDeniedException();
         }
 
         // ...
     }
 
 .. _book-security-securing-controller-annotations:
-
-.. versionadded:: 2.5
-    The ``createAccessDeniedException`` method was introduced in Symfony 2.5.
-
-The :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::createAccessDeniedException()`
-method creates a special :class:`Symfony\\Component\\Security\\Core\Exception\\AccessDeniedException`
-object, which ultimately triggers a 403 HTTP response inside Symfony.
 
 Thanks to the SensioFrameworkExtraBundle, you can also secure your controller using annotations::
 
@@ -1446,10 +1439,9 @@ or via some online tool.
 Supported algorithms for this method depend on your PHP version. A full list
 is available by calling the PHP function :phpfunction:`hash_algos`.
 
-.. tip::
-
-    It's also possible to use different hashing algorithms on a user-by-user
-    basis. See :doc:`/cookbook/security/named_encoders` for more details.
+.. versionadded:: 2.2
+    As of Symfony 2.2 you can also use the :ref:`PBKDF2 <reference-security-pbkdf2>`
+    password encoder.
 
 Determining the Hashed Password
 ...............................
@@ -2067,6 +2059,9 @@ cookie will be ever created by Symfony2):
 
 Utilities
 ---------
+
+.. versionadded:: 2.2
+    The ``StringUtils`` and ``SecureRandom`` classes were added in Symfony 2.2
 
 The Symfony Security component comes with a collection of nice utilities related
 to security. These utilities are used by Symfony, but you should also use

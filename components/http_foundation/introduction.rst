@@ -256,6 +256,9 @@ by using the following methods:
   .. versionadded:: 2.4
       The ``getEncodings()`` method was introduced in Symfony 2.4.
 
+.. versionadded:: 2.2
+    The :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` class is new in Symfony 2.2.
+
 If you need to get full access to parsed data from ``Accept``, ``Accept-Language``,
 ``Accept-Charset`` or ``Accept-Encoding``, you can use
 :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` utility class::
@@ -489,6 +492,10 @@ abstracts the hard work behind a simple API::
     );
 
     $response->headers->set('Content-Disposition', $d);
+
+.. versionadded:: 2.2
+    The :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`
+    class was introduced in Symfony 2.2.
 
 Alternatively, if you are serving a static file, you can use a
 :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::

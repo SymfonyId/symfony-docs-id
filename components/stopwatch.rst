@@ -7,6 +7,11 @@ The Stopwatch Component
 
     Stopwatch component provides a way to profile code.
 
+.. versionadded:: 2.2
+
+    The Stopwatch Component is new to Symfony 2.2. Previously, the ``Stopwatch``
+    class was located in the HttpKernel component.
+
 Installation
 ------------
 
@@ -31,16 +36,10 @@ microtime by yourself. Instead, use the simple
     // ... some code goes here
     $event = $stopwatch->stop('eventName');
 
-.. versionadded:: 2.5
-    The ``getEvent()`` method was introduced in Symfony 2.5
-
 The :class:`Symfony\\Component\\Stopwatch\\StopwatchEvent` object can be retrieved
 from the  :method:`Symfony\\Component\\Stopwatch\\Stopwatch::start`, 
-:method:`Symfony\\Component\\Stopwatch\\Stopwatch::stop`, 
-:method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap` and 
-:method:`Symfony\\Component\\Stopwatch\\Stopwatch::getEvent` methods. 
-The latter should be used when you need to retrieve the duration of an event
-while it is still running.
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::stop` and
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap` methods.
 
 You can also provide a category name to an event::
 

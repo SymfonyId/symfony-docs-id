@@ -4,7 +4,6 @@
 
   * :doc:`/components/class_loader/introduction`
   * :doc:`/components/class_loader/class_loader`
-  * :doc:`/components/class_loader/psr4_class_loader`
   * :doc:`/components/class_loader/map_class_loader`
   * :doc:`/components/class_loader/cache_class_loader`
   * :doc:`/components/class_loader/debug_class_loader`
@@ -21,9 +20,7 @@
   * :doc:`/components/console/introduction`
   * :doc:`/components/console/usage`
   * :doc:`/components/console/single_command_tool`
-  * :doc:`/components/console/changing_default_command`
   * :doc:`/components/console/events`
-  * :doc:`/components/console/logger`
   * :doc:`/components/console/helpers/index`
 
 * **CssSelector**

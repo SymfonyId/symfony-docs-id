@@ -20,7 +20,6 @@ String Constraints
 * :doc:`Url </reference/constraints/Url>`
 * :doc:`Regex </reference/constraints/Regex>`
 * :doc:`Ip </reference/constraints/Ip>`
-* :doc:`Uuid</reference/constraints/Uuid>`
 
 Number Constraints
 ~~~~~~~~~~~~~~~~~~

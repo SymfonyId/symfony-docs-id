@@ -36,6 +36,9 @@ a command in a sub-process::
 The component takes care of the subtle differences between the different platforms
 when executing the command.
 
+.. versionadded:: 2.2
+    The ``getIncrementalOutput()`` and ``getIncrementalErrorOutput()`` methods were added in Symfony 2.2.
+
 The ``getOutput()`` method always return the whole content of the standard
 output of the command and ``getErrorOutput()`` the content of the error
 output. Alternatively, the :method:`Symfony\\Component\\Process\\Process::getIncrementalOutput`
@@ -280,34 +283,6 @@ You can access the `pid`_ of a running process with the
     Due to some limitations in PHP, if you want to get the pid of a symfony Process,
     you may have to prefix your commands with `exec`_. Please read
     `Symfony Issue#5759`_ to understand why this is happening.
-
-Disabling Output
-----------------
-
-.. versionadded:: 2.5
-    The :method:`Symfony\\Component\\Process\\Process::disableOutput` and
-    :method:`Symfony\\Component\\Process\\Process::enableOutput` methods were
-    introduced in Symfony 2.5.
-
-As standard output and error output are always fetched from the underlying process,
-it might be convenient to disable output in some cases to save memory.
-Use :method:`Symfony\\Component\\Process\\Process::disableOutput` and
-:method:`Symfony\\Component\\Process\\Process::enableOutput` to toggle this feature::
-
-    use Symfony\Component\Process\Process;
-
-    $process = new Process('/usr/bin/php worker.php');
-    $process->disableOutput();
-    $process->run();
-
-.. caution::
-
-    You can not enable or disable the output while the process is running.
-
-    If you disable the output, you cannot access ``getOutput``,
-    ``getIncrementalOutput``, ``getErrorOutput`` or ``getIncrementalErrorOutput``.
-    Moreover, you could not pass a callback to the ``start``, ``run`` or ``mustRun``
-    methods or use ``setIdleTimeout``.
 
 .. _`Symfony Issue#5759`: https://github.com/symfony/symfony/issues/5759
 .. _`PHP Bug#39992`: https://bugs.php.net/bug.php?id=39992

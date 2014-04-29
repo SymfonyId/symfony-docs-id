@@ -526,7 +526,6 @@ Learn More!
 
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`
-* :doc:`/components/console/changing_default_command`
 * :doc:`/components/console/events`
 
 .. _Packagist: https://packagist.org/packages/symfony/console

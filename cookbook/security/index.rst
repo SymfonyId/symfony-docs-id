@@ -14,7 +14,6 @@ Security
     force_https
     firewall_restriction
     host_restriction
-    firewall_restriction
     form_login
     securing_services
     custom_provider
@@ -23,4 +22,3 @@ Security
     custom_authentication_provider
     target_path
     csrf_in_login_form
-    named_encoders
