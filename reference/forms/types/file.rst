@@ -9,8 +9,6 @@ The ``file`` type represents a file input in your form.
 +-------------+---------------------------------------------------------------------+
 | Rendered as | ``input`` ``file`` field                                            |
 +-------------+---------------------------------------------------------------------+
-| Options     | - `multiple`_                                                       |
-+-------------+---------------------------------------------------------------------+
 | Inherited   | - `empty_data`_                                                     |
 | options     | - `required`_                                                       |
 |             | - `label`_                                                          |
@@ -79,19 +77,6 @@ before using it directly.
 
 Read the :doc:`cookbook </cookbook/doctrine/file_uploads>` for an example of
 how to manage a file upload associated with a Doctrine entity.
-
-Field Options
--------------
-
-multiple
-~~~~~~~~
-
-.. versionadded:: 2.5
-    The ``multiple`` option was introduced in Symfony 2.5.
-
-**type**: ``Boolean`` **default**: ``false``
-
-When set to true, the user will be able to upload multiple files at the same time.
 
 Inherited Options
 -----------------

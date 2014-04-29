@@ -6,6 +6,10 @@ The Filesystem Component
 
     The Filesystem component provides basic utilities for the filesystem.
 
+.. versionadded:: 2.1
+    The Filesystem component is new to Symfony 2.1. Previously, the ``Filesystem``
+    class was located in the HttpKernel component.
+
 Installation
 ------------
 
@@ -21,19 +25,15 @@ The :class:`Symfony\\Component\\Filesystem\\Filesystem` class is the unique
 endpoint for filesystem operations::
 
     use Symfony\Component\Filesystem\Filesystem;
-    use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+    use Symfony\Component\Filesystem\Exception\IOException;
 
     $fs = new Filesystem();
 
     try {
         $fs->mkdir('/tmp/random/dir/' . mt_rand());
-    } catch (IOExceptionInterface $e) {
-        echo "An error occurred while creating your directory at ".$e->getPath();
+    } catch (IOException $e) {
+        echo "An error occurred while creating your directory";
     }
-
-.. versionadded:: 2.4
-    The ``IOExceptionInterface`` and its ``getPath`` method were introduced in
-    Symfony 2.4. Prior to 2.4, you would catch the ``IOException`` class.
 
 .. note::
 
@@ -255,12 +255,14 @@ Error Handling
 --------------
 
 Whenever something wrong happens, an exception implementing
-:class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface` or
-:class:`Symfony\\Component\\Filesystem\\Exception\\IOExceptionInterface` is thrown.
+:class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface` is
+thrown.
 
 .. note::
 
-    An :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` is
-    thrown if directory creation fails.
+    Prior to version 2.1, ``mkdir`` returned a boolean and did not throw
+    exceptions. As of 2.1, a
+    :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` is thrown
+    if a directory creation fails.
 
 .. _`Packagist`: https://packagist.org/packages/symfony/filesystem

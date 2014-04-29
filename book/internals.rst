@@ -365,19 +365,6 @@ The FrameworkBundle registers several listeners:
     Read more on the :ref:`kernel.response event <component-http-kernel-kernel-response>`.
 
 .. index::
-    single: Event; kernel.finish_request
-
-``kernel.finish_request`` Event
-...............................
-
-*Event Class*: :class:`Symfony\\Component\\HttpKernel\\Event\\FinishRequestEvent`
-
-The purpose of this event is to to handle tasks that should be performed after
-the request has been handled but that do not need to modify the response.
-Event listeners for the ``kernel.finish_request`` event are called in both
-successful and exception cases.
-
-.. index::
    single: Event; kernel.terminate
 
 ``kernel.terminate`` Event
@@ -435,12 +422,9 @@ and set a new ``Exception`` object, or do nothing::
 
         return new Response(
             'Error',
-            Response::HTTP_NOT_FOUND, // ignored
-            array('X-Status-Code' => Response::HTTP_OK)
+            404 // ignored,
+            array('X-Status-Code' => 200)
         );
-
-    .. versionadded:: 2.4
-        Support for HTTP status code constants was introduced in Symfony 2.4.
 
 .. seealso::
 

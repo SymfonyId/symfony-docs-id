@@ -177,6 +177,9 @@ string *does* match this pattern.
 htmlPattern
 ~~~~~~~~~~~
 
+.. versionadded:: 2.1
+    The ``htmlPattern`` option was introduced in Symfony 2.1
+
 **type**: ``string|Boolean`` **default**: null
 
 This option specifies the pattern to use in the HTML5 ``pattern`` attribute.

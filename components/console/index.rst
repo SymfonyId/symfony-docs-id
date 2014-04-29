@@ -6,8 +6,6 @@ Console
 
     introduction
     usage
-    changing_default_command
     single_command_tool
     events
-    logger
     helpers/index

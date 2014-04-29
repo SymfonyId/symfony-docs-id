@@ -18,7 +18,6 @@ Validation Constraints Reference
    constraints/Url
    constraints/Regex
    constraints/Ip
-   constraints/Uuid
 
    constraints/Range
 
@@ -54,7 +53,6 @@ Validation Constraints Reference
    constraints/Issn
 
    constraints/Callback
-   constraints/Expression
    constraints/All
    constraints/UserPassword
    constraints/Valid

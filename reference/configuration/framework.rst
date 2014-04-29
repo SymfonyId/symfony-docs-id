@@ -20,14 +20,11 @@ Configuration
 * `ide`_
 * `test`_
 * `trusted_proxies`_
-* `csrf_protection`_
-    * enabled
-    * field_name (deprecated)
 * `form`_
     * enabled
-    * csrf_protection
-        * enabled
-        * field_name
+* `csrf_protection`_
+    * enabled
+    * field_name
 * `session`_
     * `name`_
     * `cookie_lifetime`_
@@ -410,6 +407,11 @@ would be ``/images/logo.png?version=5``.
 profiler
 ~~~~~~~~
 
+.. versionadded:: 2.2
+    The ``enabled`` option was introduced in Symfony 2.2. Previously, the profiler
+    could only be disabled by omitting the ``framework.profiler`` configuration
+    entirely.
+
 .. _profiler.enabled:
 
 enabled
@@ -452,16 +454,12 @@ Full default Configuration
             test:                 ~
             default_locale:       en
 
-            csrf_protection:
-                enabled:              false
-                field_name:           _token # Deprecated since 2.4, to be removed in 3.0. Use form.csrf_protection.field_name instead
-
             # form configuration
             form:
                 enabled:              false
-                csrf_protection:
-                    enabled:          true
-                    field_name:       ~
+            csrf_protection:
+                enabled:              false
+                field_name:           _token
 
             # esi configuration
             esi:

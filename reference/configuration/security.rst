@@ -13,14 +13,6 @@ Full default Configuration
 The following is the full default configuration for the security system.
 Each part will be explained in the next section.
 
-.. versionadded:: 2.4
-    Support for restricting security firewalls to a specific host was introduced in
-    Symfony 2.4.
-
-.. versionadded:: 2.5
-    Support for restricting security firewalls to specific http methods was introduced in
-    Symfony 2.5.
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -106,10 +98,6 @@ Each part will be explained in the next section.
                 # Examples:
                 somename:
                     pattern: .*
-                    # restrict the firewall to a specific host
-                    host: admin\.example\.com
-                     # restrict the firewall to specific http methods
-                    methods: [GET, POST]
                     request_matcher: some.service.id
                     access_denied_url: /foo/error403
                     access_denied_handler: some.service.id
@@ -296,6 +284,9 @@ Redirecting after Login
 Using the PBKDF2 Encoder: Security and Speed
 --------------------------------------------
 
+.. versionadded:: 2.2
+    The PBKDF2 password encoder was introduced in Symfony 2.2.
+
 The `PBKDF2`_ encoder provides a high level of Cryptographic security, as
 recommended by the National Institute of Standards and Technology (NIST).
 
@@ -317,6 +308,9 @@ Using the BCrypt Password Encoder
 
     To use this encoder, you either need to use PHP Version 5.5 or install
     the `ircmaxell/password-compat`_ library via Composer.
+
+.. versionadded:: 2.2
+    The BCrypt password encoder was introduced in Symfony 2.2.
 
 .. configuration-block::
 

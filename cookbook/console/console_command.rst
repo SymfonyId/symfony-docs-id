@@ -62,15 +62,6 @@ This command will now automatically be available to run:
 
     $ app/console demo:greet Fabien
 
-.. _cookbook-console-dic:
-
-Register Commands in the Service Container
--------------------------------------------
-
-Just like controllers, commands can be declared as services. See the
-:doc:`dedicated cookbook entry </cookbook/console/commands_as_services>`
-for details.
-
 Getting Services from the Service Container
 -------------------------------------------
 
@@ -115,6 +106,7 @@ instead of
             $commandTester = new CommandTester($command);
             $commandTester->execute(
                 array(
+                    'command' => $command->getName(),
                     'name'    => 'Fabien',
                     '--yell'  => true,
                 )
@@ -126,11 +118,6 @@ instead of
         }
     }
 
-.. versionadded:: 2.4
-    Since Symfony 2.4, the ``CommandTester`` automatically detects the name of
-    the command to execute. Prior to Symfony 2.4, you need to pass it via the
-    ``command`` key.
-
 .. note::
 
     In the specific case above, the ``name`` parameter and the ``--yell`` option
@@ -139,14 +126,14 @@ instead of
 
 To be able to use the fully set up service container for your console tests
 you can extend your test from
-:class:`Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase`::
+:class:`Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase`::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
-    use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
     use Acme\DemoBundle\Command\GreetCommand;
 
-    class ListCommandTest extends KernelTestCase
+    class ListCommandTest extends WebTestCase
     {
         public function testExecute()
         {
@@ -160,6 +147,7 @@ you can extend your test from
             $commandTester = new CommandTester($command);
             $commandTester->execute(
                 array(
+                    'command' => $command->getName(),
                     'name'    => 'Fabien',
                     '--yell'  => true,
                 )
@@ -170,13 +158,3 @@ you can extend your test from
             // ...
         }
     }
-
-.. versionadded:: 2.5
-    :class:`Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase` was
-    extracted from :class:`Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase`
-    in Symfony 2.5. ``WebTestCase`` inherits from ``KernelTestCase``. The
-    ``WebTestCase`` creates an instance of
-    :class:`Symfony\\Bundle\\FrameworkBundle\\Client` via ``createClient()``,
-    while ``KernelTestCase`` creates an instance of
-    :class:`Symfony\\Component\\HttpKernel\\KernelInterface` via
-    ``createKernel()``.

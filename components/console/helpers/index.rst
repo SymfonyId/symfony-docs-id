@@ -9,10 +9,7 @@ The Console Helpers
 
     dialoghelper
     formatterhelper
-    progressbar
     progresshelper
-    questionhelper
-    table
     tablehelper
 
 The Console component comes with some useful helpers. These helpers contain

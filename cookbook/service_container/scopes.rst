@@ -6,17 +6,8 @@ How to Work with Scopes
 
 This entry is all about scopes, a somewhat advanced topic related to the
 :doc:`/book/service_container`. If you've ever gotten an error mentioning
-"scopes" when creating services, then this entry is for you.
-
-.. note::
-
-    If you are trying to inject the ``request`` service, the simple solution
-    is to inject the ``request_stack`` service instead and access the current
-    Request by calling the
-    :method:`Symfony\\Component\\HttpFoundation\\RequestStack::getCurrentRequest`
-    method (see :ref:`book-container-request-stack`). The rest of this entry
-    talks about scopes in a theoretical and more advanced way. If you're
-    dealing with scopes for the ``request`` service, simply inject ``request_stack``.
+"scopes" when creating services, or need to create a service that depends
+on the ``request`` service, then this entry is for you.
 
 Understanding Scopes
 --------------------
@@ -36,22 +27,10 @@ also defines a third scope: ``request``. This scope is tied to the request,
 meaning a new instance is created for each subrequest and is unavailable
 outside the request (for instance in the CLI).
 
-An Example: Client Scope
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Other than the ``request`` service (which has a simple solution, see the
-above note), no services in the default Symfony2 container belong to any
-scope other than ``container`` and ``prototype``. But for the purposes of
-this entry, imagine there is another scope ``client`` and a service ``client_configuration``
-that belongs to it. This is not a common situation, but the idea is that
-you may enter and exit multiple ``client`` scopes during a request, and each
-has its own ``client_configuration`` service.
-
 Scopes add a constraint on the dependencies of a service: a service cannot
 depend on services from a narrower scope. For example, if you create a generic
-``my_foo`` service, but try to inject the ``client_configuration`` service,
-you will receive a
-:class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
+``my_foo`` service, but try to inject the ``request`` service, you will receive
+a :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
 when compiling the container. Read the sidebar below for more details.
 
 .. sidebar:: Scopes and Dependencies
@@ -61,29 +40,28 @@ when compiling the container. Read the sidebar below for more details.
     every time you ask the container for the ``my_mailer`` service, you get
     the same object back. This is usually how you want your services to work.
 
-    Imagine, however, that you need the ``client_configuration`` service
-    in your ``my_mailer`` service, maybe because you're reading some details
-    from it, such as what the "sender" address should be. You add it as a
-    constructor argument. There are several reasons why this presents a problem:
+    Imagine, however, that you need the ``request`` service in your ``my_mailer``
+    service, maybe because you're reading the URL of the current request.
+    So, you add it as a constructor argument. There are several reasons why
+    this presents a problem:
 
     * When requesting ``my_mailer``, an instance of ``my_mailer`` (called
-      *MailerA* here) is created and the ``client_configuration`` service (
-      called *ConfigurationA* here) is passed to it. Life is good!
+      *MailerA*) is created and the ``request`` service (called *RequestA*)
+      is passed to it. Life is good!
 
-    * Your application now needs to do something with another client, and
-      you've architected your application in such a way that you handle this
-      by entering a new ``client_configuration`` scope and setting a new
-      ``client_configuration`` service into the container. Call this
-      *ConfigurationB*.
+    * You've now made a subrequest in Symfony, which is a fancy way of saying
+      that you've called, for example, the ``{{ render(...) }}`` Twig function,
+      which executes another controller. Internally, the old ``request`` service
+      (*RequestA*) is actually replaced by a new request instance (*RequestB*).
+      This happens in the background, and it's totally normal.
 
-    * Somewhere in your application, you once again ask for the ``my_mailer``
+    * In your embedded controller, you once again ask for the ``my_mailer``
       service. Since your service is in the ``container`` scope, the same
       instance (*MailerA*) is just re-used. But here's the problem: the
-      *MailerA* instance still contains the old *ConfigurationA* object, which
-      is now **not** the correct configuration object to have (*ConfigurationB*
-      is now the current ``client_configuration`` service). This is subtle,
-      but the mis-match could cause major problems, which is why it's not
-      allowed.
+      *MailerA* instance still contains the old *RequestA* object, which
+      is now **not** the correct request object to have (*RequestB* is now
+      the current ``request`` service). This is subtle, but the mis-match could
+      cause major problems, which is why it's not allowed.
 
       So, that's the reason *why* scopes exist, and how they can cause
       problems. Keep reading to find out the common solutions.
@@ -93,19 +71,22 @@ when compiling the container. Read the sidebar below for more details.
     A service can of course depend on a service from a wider scope without
     any issue.
 
-Using a Service from a Narrower Scope
+Using a Service from a narrower Scope
 -------------------------------------
 
-There are several solutions to the scope problem:
+If your service has a dependency on a scoped service (like the ``request``),
+you have three ways to deal with it:
 
-* A) Use setter injection if the dependency is ``synchronized`` (see
+* Use setter injection if the dependency is "synchronized"; this is the
+  recommended way and the best solution for the ``request`` instance as it is
+  synchronized with the ``request`` scope (see
   :ref:`using-synchronized-service`);
 
-* B) Put your service in the same scope as the dependency (or a narrower one). If
-  you depend on the ``client_configuration`` service, this means putting your
-  new service in the ``client`` scope (see :ref:`changing-service-scope`);
+* Put your service in the same scope as the dependency (or a narrower one). If
+  you depend on the ``request`` service, this means putting your new service
+  in the ``request`` scope (see :ref:`changing-service-scope`);
 
-* C) Pass the entire container to your service and retrieve your dependency from
+* Pass the entire container to your service and retrieve your dependency from
   the container each time you need it to be sure you have the right instance
   -- your service can live in the default ``container`` scope (see
   :ref:`passing-container`).
@@ -114,99 +95,49 @@ Each scenario is detailed in the following sections.
 
 .. _using-synchronized-service:
 
-A) Using a Synchronized Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using a synchronized Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.3
     Synchronized services are new in Symfony 2.3.
 
-Both injecting the container and setting your service to a narrower scope have
-drawbacks. Assume first that the ``client_configuration`` service has been
-marked as ``synchronized``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        services:
-            client_configuration:
-                class:        Acme\HelloBundle\Client\ClientConfiguration
-                scope:        client
-                synchronized: true
-                synthetic:    true
-                # ...
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd"
-            >
-
-            <services>
-                <service
-                    id="client_configuration"
-                    scope="client"
-                    synchronized="true"
-                    synthetic="true"
-                    class="Acme\HelloBundle\Client\ClientConfiguration"
-                />
-            </services>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        use Symfony\Component\DependencyInjection\Definition;
-
-        $definition = new Definition(
-            'Acme\HelloBundle\Client\ClientConfiguration',
-            array()
-        );
-        $definition->setScope('client');
-        $definition->setSynchronized(true);
-        $definition->setSynthetic(true);
-        $container->setDefinition('client_configuration', $definition);
-
-Now, if you inject this service using setter injection, there are no drawbacks
-and everything works without any special code in your service or in your definition::
+Injecting the container or setting your service to a narrower scope have
+drawbacks. For synchronized services (like the ``request``), using setter
+injection is the best option as it has no drawbacks and everything works
+without any special code in your service or in your definition::
 
     // src/Acme/HelloBundle/Mail/Mailer.php
     namespace Acme\HelloBundle\Mail;
 
-    use Acme\HelloBundle\Client\ClientConfiguration;
+    use Symfony\Component\HttpFoundation\Request;
 
     class Mailer
     {
-        protected $clientConfiguration;
+        protected $request;
 
-        public function setClientConfiguration(ClientConfiguration $clientConfiguration = null)
+        public function setRequest(Request $request = null)
         {
-            $this->clientConfiguration = $clientConfiguration;
+            $this->request = $request;
         }
 
         public function sendEmail()
         {
-            if (null === $this->clientConfiguration) {
+            if (null === $this->request) {
                 // throw an error?
             }
 
-            // ... do something using the client configuration here
+            // ... do something using the request here
         }
     }
 
-Whenever the ``client`` scope is active, the service container will
-automatically call the ``setClientConfiguration()`` method when the
-``client_configuration`` service is set in the container.
+Whenever the ``request`` scope is entered or left, the service container will
+automatically call the ``setRequest()`` method with the current ``request``
+instance.
 
-You might have noticed that the ``setClientConfiguration()`` method accepts
-``null`` as a valid value for the ``client_configuration`` argument. That's
-because when leaving the ``client`` scope, the ``client_configuration`` instance
-can be ``null``. Of course, you should take care of this possibility in
+You might have noticed that the ``setRequest()`` method accepts ``null`` as a
+valid value for the ``request`` argument. That's because when leaving the
+``request`` scope, the ``request`` instance can be ``null`` (for the master
+request for instance). Of course, you should take care of this possibility in
 your code. This should also be taken into account when declaring your service:
 
 .. configuration-block::
@@ -215,25 +146,20 @@ your code. This should also be taken into account when declaring your service:
 
         # src/Acme/HelloBundle/Resources/config/services.yml
         services:
-            my_mailer:
-                class: Acme\HelloBundle\Mail\Mailer
+            greeting_card_manager:
+                class: Acme\HelloBundle\Mail\GreetingCardManager
                 calls:
-                    - [setClientConfiguration, ["@?client_configuration="]]
+                    - [setRequest, ["@?request="]]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <services>
-            <service id="my_mailer"
-                class="Acme\HelloBundle\Mail\Mailer"
+            <service id="greeting_card_manager"
+                class="Acme\HelloBundle\Mail\GreetingCardManager"
             >
-                <call method="setClientConfiguration">
-                    <argument
-                        type="service"
-                        id="client_configuration"
-                        on-invalid="null"
-                        strict="false"
-                    />
+                <call method="setRequest">
+                    <argument type="service" id="request" on-invalid="null" strict="false" />
                 </call>
             </service>
         </services>
@@ -245,25 +171,55 @@ your code. This should also be taken into account when declaring your service:
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
         $definition = $container->setDefinition(
-            'my_mailer',
-            new Definition('Acme\HelloBundle\Mail\Mailer')
+            'greeting_card_manager',
+            new Definition('Acme\HelloBundle\Mail\GreetingCardManager')
         )
-        ->addMethodCall('setClientConfiguration', array(
-            new Reference(
-                'client_configuration',
-                ContainerInterface::NULL_ON_INVALID_REFERENCE,
-                false
-            )
+        ->addMethodCall('setRequest', array(
+            new Reference('request', ContainerInterface::NULL_ON_INVALID_REFERENCE, false)
         ));
+
+.. tip::
+
+    You can declare your own ``synchronized`` services very easily; here is
+    the declaration of the ``request`` service for reference:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            services:
+                request:
+                    scope: request
+                    synthetic: true
+                    synchronized: true
+
+        .. code-block:: xml
+
+            <services>
+                <service id="request" scope="request" synthetic="true" synchronized="true" />
+            </services>
+
+        .. code-block:: php
+
+            use Symfony\Component\DependencyInjection\Definition;
+            use Symfony\Component\DependencyInjection\ContainerInterface;
+
+            $definition = $container->setDefinition('request')
+                ->setScope('request')
+                ->setSynthetic(true)
+                ->setSynchronized(true);
+
+.. caution::
+
+    The service using the synchronized service will need to be public in order
+    to have its setter called when the scope changes.
 
 .. _changing-service-scope:
 
-B) Changing the Scope of your Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Changing the Scope of your Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Changing the scope of a service should be done in its definition. This example
-assumes that the ``Mailer`` class has a ``__construct`` function whose first
-argument is the ``ClientConfiguration`` object:
+Changing the scope of a service should be done in its definition:
 
 .. configuration-block::
 
@@ -271,20 +227,20 @@ argument is the ``ClientConfiguration`` object:
 
         # src/Acme/HelloBundle/Resources/config/services.yml
         services:
-            my_mailer:
-                class: Acme\HelloBundle\Mail\Mailer
-                scope: client
-                arguments: ["@client_configuration"]
+            greeting_card_manager:
+                class: Acme\HelloBundle\Mail\GreetingCardManager
+                scope: request
+                arguments: ["@request"]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <services>
-            <service id="my_mailer"
-                class="Acme\HelloBundle\Mail\Mailer"
-                scope="client"
+            <service id="greeting_card_manager"
+                class="Acme\HelloBundle\Mail\GreetingCardManager"
+                scope="request"
             />
-            <argument type="service" id="client_configuration" />
+            <argument type="service" id="request" />
         </services>
 
     .. code-block:: php
@@ -293,17 +249,17 @@ argument is the ``ClientConfiguration`` object:
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = $container->setDefinition(
-            'my_mailer',
+            'greeting_card_manager',
             new Definition(
-                'Acme\HelloBundle\Mail\Mailer',
-                array(new Reference('client_configuration'),
+                'Acme\HelloBundle\Mail\GreetingCardManager',
+                array(new Reference('request'),
             ))
-        )->setScope('client');
+        )->setScope('request');
 
 .. _passing-container:
 
-C) Passing the Container as a Dependency of your Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Passing the Container as a Dependency of your Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Setting the scope to a narrower one is not always possible (for instance, a
 twig extension must be in the ``container`` scope as the Twig environment
@@ -326,15 +282,15 @@ into your service::
 
         public function sendEmail()
         {
-            $request = $this->container->get('client_configuration');
-            // ... do something using the client configuration here
+            $request = $this->container->get('request');
+            // ... do something using the request here
         }
     }
 
 .. caution::
 
-    Take care not to store the client configuration in a property of the object
-    for a future call of the service as it would cause the same issue described
+    Take care not to store the request in a property of the object for a
+    future call of the service as it would cause the same issue described
     in the first section (except that Symfony cannot detect that you are
     wrong).
 
@@ -387,3 +343,10 @@ The service config for this class would look something like this:
 
     Injecting the whole container into a service is generally not a good
     idea (only inject what you need).
+
+.. tip::
+
+    If you define a controller as a service then you can get the ``Request``
+    object without injecting the container by having it passed in as an
+    argument of your action method. See
+    :ref:`book-controller-request-argument` for details.
