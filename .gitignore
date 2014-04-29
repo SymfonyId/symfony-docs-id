@@ -1,0 +1,16 @@
+## file temporer editor
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+## ignore list bawaan
+/_build
+/bundles/DoctrineFixturesBundle
+/bundles/DoctrineMigrationsBundle
+/bundles/DoctrineMongoDBBundle
+/bundles/SensioFrameworkExtraBundle
+/bundles/SensioGeneratorBundle
+/cmf
+/_exts
