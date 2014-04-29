@@ -1,16 +1,15 @@
-Symfony Documentation
-=====================
+Dokumentasi Framework Symfony
+=============================
 
-This documentation is rendered online at http://symfony.com/doc/current/
+Dokumentasi ini **belum** tersedia secara online di http://symfony.com/doc/current/
 
-Contributing
-------------
+Berkontribusi
+-------------
 
->**Note**
->Unless you're documenting a feature that was introduced *after* Symfony 2.3 
->(e.g. in Symfony 2.4), all pull requests must be based off of the **2.3** branch,
->**not** the master or older branches.
+>**Catatan**
+>Kecuali anda mendokumentasikan fitur yang ditambahkan *setelah* Symfony 2.3 
+>(cth. di Symfony 2.4), semua pull request harus dibuat berdasar branch **2.3**
+>**bukan ** branch master atau branch lain.
 
-We love contributors! For more information on how you can contribute to the
-Symfony documentation, please read
-[Contributing to the Documentation](http://symfony.com/doc/current/contributing/documentation/overview.html)
+Aturan umum berkontribusi dapat dibaca di [Contributing to the Documentation](http://symfony.com/doc/current/contributing/documentation/overview.html)
+. Anda juga bisa bergabung di group Facebook [Symfony Framework Indonesia](https://www.facebook.com/groups/symfonian.indo/)
