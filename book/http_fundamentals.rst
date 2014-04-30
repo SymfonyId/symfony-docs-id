@@ -1,31 +1,32 @@
 .. index::
-   single: Symfony2 Fundamentals
+   single: Dasar-dasar Symfony2
 
-Symfony2 and HTTP Fundamentals
-==============================
+Dasar-dasar Symfony2 and HTTP
+=============================
 
-Congratulations! By learning about Symfony2, you're well on your way towards
-being a more *productive*, *well-rounded* and *popular* web developer (actually,
-you're on your own for the last part). Symfony2 is built to get back to
-basics: to develop tools that let you develop faster and build more robust
-applications, while staying out of your way. Symfony is built on the best
-ideas from many technologies: the tools and concepts you're about to learn
-represent the efforts of thousands of people, over many years. In other words,
-you're not just learning "Symfony", you're learning the fundamentals of the
-web, development best practices, and how to use many amazing new PHP libraries,
-inside or independently of Symfony2. So, get ready.
+Selamat! Dengan mempelajari Symfony2, anda telah berada di jalur yang akan membuat
+anda menjadi pengembang web yang lebih *produktif*, *paripurna*, dan *populer*
+(sebetulnya, anda harus berusaha sendiri untuk hal yang terakhir).
+Symfony2 diwujudkan agar kembali ke dasar: membuat perkakas agar anda
+dapat membuat dan mengembangkan aplikasi-aplikasi yang lebih tangguh,
+keluar dari cara anda biasanya. Symfony diwujudkan berlandaskan ide-ide terbaik
+dari berbagai teknologi: perkakas dan konsep yang akan anda pelajari mencerminkan
+karya ribuan orang selama bertahun-tahun. Dengan kata lain, anda tidak hanya
+mempelajari "Symfony", tapi anda mempelajari hakikat web, cara-cara terbaik
+mengembangkan aplikasi, dan cara menggunakan berbagai pustaka PHP baru yang mempesona,
+dengan atau tanpa Symfony2. Jadi, bersiaplah.
 
-True to the Symfony2 philosophy, this chapter begins by explaining the fundamental
-concept common to web development: HTTP. Regardless of your background or
-preferred programming language, this chapter is a **must-read** for everyone.
+Bersesuaian dengan falsafah Symfony2, bab ini bermula dengan menjelaskan
+hakikat konsep yang umum di bidang pengembangan web: HTTP. Tak peduli latar
+belakang atau bahasa program kegemaran anda, bab ini menjadi hal
+yang **harus-dibaca** untuk setiap orang.
 
-HTTP is Simple
---------------
+HTTP itu Sederhana
+------------------
 
-HTTP (Hypertext Transfer Protocol to the geeks) is a text language that allows
-two machines to communicate with each other. That's it! For example, when
-checking for the latest `xkcd`_ comic, the following (approximate) conversation
-takes place:
+HTTP (Hypertext Transfer Protocol, bagi penggemar komputer) adalah bahasa tulis
+yang membuat dua mesin dapat berkomunikasi satu sama lain. Itu saja!
+Misalnya, ketika menyelidik komik `xkcd`_, percakapan berikut (kira-kira) terjadi:
 
 .. image:: /images/http-xkcd.png
    :align: center
