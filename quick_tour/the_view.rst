@@ -1,22 +1,22 @@
-The View
+Layer Tampilan (View)
 ========
 
-After reading the first part of this tutorial, you have decided that Symfony2
-was worth another 10 minutes. In this second part, you will learn more about
-`Twig`_, the fast, flexible, and secure template engine for PHP. Twig makes your
-templates more readable and concise; it also makes them more friendly for web
-designers.
+Setelah membaca bagian pertama dari tutorial ini, kamu pasti beranggapan 
+sebaiknya kita lanjutkan tutorial Symfony2 ini. Dalam bagian yg kedua ini,
+kita akan mempelajari tentang `Twig`_, sebuah pengolah template PHP yg 
+cepat, fleksibel dan aman. Twig membuat template yang kita buat lebih mudah
+dibaca, ringkas, dan mudah dipahami oleh web desainer.
 
-Getting familiar with Twig
+Mempelajari Twig lebih dalam
 --------------------------
 
-The official `Twig documentation`_ is the best resource to learn everything
-about this new template engine. This section just gives you a quick overview of
-its main concepts.
+`Dokumentasi resmi Twig`_ merupakan sumber terbaik untuk mempelajari segala
+sesuatu tentang pengolah template yang baru ini. Bagian ini hanya menjelaskan
+secara singkat tentang konsep utamanya.
 
-A Twig template is a text file that can generate any type of content (HTML, CSS,
-JavaScript, XML, CSV, LaTeX, ...). Twig elements are separated from the rest of
-the template contents using any of these delimiters:
+Template Twig berupa sebuah file yang dapat digunakan untuk menghasilkan berbagai
+macam tipe dokumen (HTML, CSS, JavaScript, XML, CSV, LaTeX, ...). Elemen khusus
+Twig ditandai secara khusus dengan menggunakan karakter pemisah berikut ini:
 
 * ``{{ ... }}``: prints the content of a variable or the result of an expression;
 
@@ -279,4 +279,4 @@ and that's exactly the topic of the :doc:`next part of this tutorial <the_contro
 Ready for another 10 minutes with Symfony2?
 
 .. _Twig:               http://twig.sensiolabs.org/
-.. _Twig documentation: http://twig.sensiolabs.org/documentation
+.. _Dokumentasi resmi Twig: http://twig.sensiolabs.org/documentation
