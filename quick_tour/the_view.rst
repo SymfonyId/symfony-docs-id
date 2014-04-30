@@ -279,4 +279,4 @@ and that's exactly the topic of the :doc:`next part of this tutorial <the_contro
 Ready for another 10 minutes with Symfony2?
 
 .. _Twig:               http://twig.sensiolabs.org/
-.. _Twig documentation: http://twig.sensiolabs.org/documentation
+.. _Dokumentasi resmi Twig: http://twig.sensiolabs.org/documentation
