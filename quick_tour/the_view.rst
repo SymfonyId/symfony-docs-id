@@ -7,12 +7,12 @@ kita akan mempelajari tentang `Twig`_, sebuah pengolah template PHP yg
 cepat, fleksibel dan aman. Twig membuat template yang kita buat lebih mudah
 dibaca, ringkas, dan mudah dipahami oleh web desainer.
 
-Getting familiar with Twig
+Mempelajari Twig lebih dalam
 --------------------------
 
-The official `Twig documentation`_ is the best resource to learn everything
-about this new template engine. This section just gives you a quick overview of
-its main concepts.
+`Dokumentasi resmi Twig`_ merupakan sumber terbaik untuk mempelajari segala
+sesuatu tentang pengolah template yang baru ini. Bagian ini hanya menjelaskan
+secara singkat tentang konsep utamanya.
 
 A Twig template is a text file that can generate any type of content (HTML, CSS,
 JavaScript, XML, CSV, LaTeX, ...). Twig elements are separated from the rest of
@@ -279,4 +279,4 @@ and that's exactly the topic of the :doc:`next part of this tutorial <the_contro
 Ready for another 10 minutes with Symfony2?
 
 .. _Twig:               http://twig.sensiolabs.org/
-.. _Twig documentation: http://twig.sensiolabs.org/documentation
+.. _Dokumentasi resmi Twig: http://twig.sensiolabs.org/documentation
