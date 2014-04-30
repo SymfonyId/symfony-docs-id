@@ -1,43 +1,46 @@
-The Big Picture
-===============
+Gambaran Umum
+=============
 
-Start using Symfony2 in 10 minutes! This chapter will walk you through some of
-the most important concepts behind Symfony2 and explain how you can get started
-quickly by showing you a simple project in action.
+Mulai menggunakan Symfony2 dalam 10 menit! Bab ini akan menjelaskan mengenai
+konsep-konsep paling penting dibalik Symfony2 dan menjelaskan bagaimana anda
+bisa mulai bekerja dengan cepat, dengan mengajak anda membuat sebuah proyek
+sederhana.
 
-If you've used a web framework before, you should feel right at home with
-Symfony2. If not, welcome to a whole new way of developing web applications.
+Jika anda pernah menggunakan framework sebelumnya, anda harusnya akan merasa
+familiar dengan Symfony2. Jika tidak, selamat datang di sebuah cara baru
+mengembangkan aplikasi web.
 
-Installing Symfony2
+Pemasangan Symfony2
 -------------------
 
-First, check that the PHP version installed on your computer meets the Symfony2
-requirements: 5.3.3 or higher. Then, open a console and execute the following
-command to install the latest version of Symfony2 in the ``myproject/``
-directory:
+Pertama, periksa apakah versi PHP yang terpasang di komputer anda memenuhi
+kebutuhan Symfony2: 5.3.3 atau lebih tinggi. Lalu, buka konsol/*command prompt*
+dan jalankan perintah di bawah ini untuk memasang versi terakhir dari Symfony2
+ke direktori ``proyekku/``
 
 .. code-block:: bash
 
-    $ composer create-project symfony/framework-standard-edition myproject/ ~2.4
+    $ composer create-project symfony/framework-standard-edition proyekku/ ~2.4
 
 .. note::
 
-    `Composer`_ is the package manager used by modern PHP applications and the
-    only recommended way to install Symfony2. To install Composer on your
-    Linux or Mac system, execute the following commands:
+    `Composer`_ adalah manajer paket yang digunakan oleh aplikasi PHP modern
+    dan satu-satunya cara yang disarankan untuk memasang Symfony2. Untuk
+    memasang Composer di sistem Linux atau Mac anda, jalankan perintah di bawah
+    ini:
 
     .. code-block:: bash
 
         $ curl -sS https://getcomposer.org/installer | php
         $ sudo mv composer.phar /usr/local/bin/composer
 
-    To install Composer on a Windows system, download the `executable installer`_.
+    Untuk memasang COmposer di sistem operasi Windows, unduh `berkas installer`_.
 
-Beware that the first time you install Symfony2, it may take a few minutes to
-download all its components. At the end of the installation process, the
-installer will ask you to provide some configuration options for the Symfony2
-project. For this first project you can safely ignore this configuration by
-pressing the ``<Enter>`` key repeatedly.
+Perhatikan bahwa pemasangan Symfony2 akan memakan waktu cukup lama, karena anda
+perlu mengunduh semua komponennya. Setelah pemasangan selesai, installer akan
+meminta anda menyediakan pilihan konfigurasi untuk proyek anda. Untuk proyek
+pertama ini, anda bisa mengabaikan proses konfigurasi dengan menekan
+``<Enter>`` berkali-kali.
 
 Running Symfony2
 ----------------
@@ -376,6 +379,6 @@ Symfony2 makes it really easy to implement web sites better and faster. If you
 are eager to learn more about Symfony2, dive into the next section:
 ":doc:`The View<the_view>`".
 
-.. _Composer:             https://getcomposer.org/
-.. _executable installer: http://getcomposer.org/download
-.. _Twig:                 http://twig.sensiolabs.org/
+.. _Composer:         https://getcomposer.org/
+.. _berkas installer: http://getcomposer.org/download
+.. _Twig:             http://twig.sensiolabs.org/
