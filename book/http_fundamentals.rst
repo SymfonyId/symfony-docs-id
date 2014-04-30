@@ -31,28 +31,29 @@ Misalnya, ketika menyelidik komik `xkcd`_, percakapan berikut (kira-kira) terjad
 .. image:: /images/http-xkcd.png
    :align: center
 
-And while the actual language used is a bit more formal, it's still dead-simple.
-HTTP is the term used to describe this simple text-based language. And no
-matter how you develop on the web, the goal of your server is *always* to
-understand simple text requests, and return simple text responses.
+Walaupun bahasa yang digunakan sedikit lebih formal, ia masih tetap sederhana.
+HTTP adalah istilah yang digunakan untuk menggambarkan bahasa tulis ini.
+Dan tak peduli bagaimana anda bekerja dengan web, tujuan akhir server anda adalah
+*selalu* untuk memahami permintaan teks sederhana dan mengembalikan jawaban
+sederhana.
 
-Symfony2 is built from the ground-up around that reality. Whether you realize
-it or not, HTTP is something you use everyday. With Symfony2, you'll learn
-how to master it.
+Symfony2 diwujudkan berdasar dari kenyataan tersebut. Entah anda menyadari
+atau tidak, HTTP adalah sesuatu yang anda gunakan tiap hari. Dengan Symfony2,
+anda akan belajar cara memahaminya.
 
 .. index::
-   single: HTTP; Request-response paradigm
+   single: HTTP; Paradigma Permintaan-jawaban
 
-Step1: The Client Sends a Request
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Langkah 1: Klien Mengirim Permintaan
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every conversation on the web starts with a *request*. The request is a text
-message created by a client (e.g. a browser, an iPhone app, etc) in a
-special format known as HTTP. The client sends that request to a server,
-and then waits for the response.
+Setiap percakapan di web bermula dari sebuah *permintaan*. Permintaan adalah
+pesan teks yang dibuat oleh klien (misalnya peramban web, aplikasi iPhone, dll)
+dalam format khusus yang dikenal sebagai HTTP. Klien mengirimkan
+permintaan tersebut ke server lalu menunggu jawabannya.
 
-Take a look at the first part of the interaction (the request) between a
-browser and the xkcd web server:
+Perhatikanlah bagian pertama dari interaksi (permintaan) antara peramban
+dan server web xkcd:
 
 .. image:: /images/http-xkcd-request.png
    :align: center
