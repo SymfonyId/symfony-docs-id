@@ -34,7 +34,7 @@ ke direktori ``proyekku/``
         $ curl -sS https://getcomposer.org/installer | php
         $ sudo mv composer.phar /usr/local/bin/composer
 
-    Untuk memasang COmposer di sistem operasi Windows, unduh `berkas installer`_.
+    Untuk memasang Composer di sistem operasi Windows, unduh `berkas installer`_.
 
 Perhatikan bahwa pemasangan Symfony2 akan memakan waktu cukup lama, karena anda
 perlu mengunduh semua komponennya. Setelah pemasangan selesai, installer akan
