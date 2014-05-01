@@ -58,7 +58,8 @@ dan server web xkcd:
 .. image:: /images/http-xkcd-request.png
    :align: center
 
-In HTTP-speak, this HTTP request would actually look something like this:
+Dalam konteks pembicaraan HTTP, permintaan HTTP ini sebenarnya akan terlihat
+seperti ini:
 
 .. code-block:: text
 
@@ -67,28 +68,30 @@ In HTTP-speak, this HTTP request would actually look something like this:
     Accept: text/html
     User-Agent: Mozilla/5.0 (Macintosh)
 
-This simple message communicates *everything* necessary about exactly which
-resource the client is requesting. The first line of an HTTP request is the
-most important and contains two things: the URI and the HTTP method.
+Pesan lugas ini menyampaikan *semua hal* yang diperlukan, tepat berkaitan
+dengan sumber daya yang sedang diminta klien. Baris pertama permintaan
+HTTP adalah yang terpenting dan berisi dua hal: URI dan metode HTTP.
 
-The URI (e.g. ``/``, ``/contact``, etc) is the unique address or location
-that identifies the resource the client wants. The HTTP method (e.g. ``GET``)
-defines what you want to *do* with the resource. The HTTP methods are the
-*verbs* of the request and define the few common ways that you can act upon
-the resource:
+URI (misalnya ``/``, ``/kontak``, dll) adalah alamat unik atau lokasi
+yang mengidentifikasi sumber daya yang diinginkan klien. Metode HTTP
+(misalnya ``GET``) mendefinisikan apa yang ingin anda *lakukan* terhadap
+sumber daya tersebut. Metode-metode HTTP adalah *kata-kerja* dari permintaan
+tersebut dan mendefinisikan cara-cara umum yang bisa anda buat terhadap
+sumber daya tersebut:
 
-+----------+---------------------------------------+
-| *GET*    | Retrieve the resource from the server |
-+----------+---------------------------------------+
-| *POST*   | Create a resource on the server       |
-+----------+---------------------------------------+
-| *PUT*    | Update the resource on the server     |
-+----------+---------------------------------------+
-| *DELETE* | Delete the resource from the server   |
-+----------+---------------------------------------+
++----------+-----------------------------------------+
+| *GET*    | Mengambil suatu sumber daya dari server |
++----------+-----------------------------------------+
+| *POST*   | Membuat suatu sumber daya di server     |
++----------+-----------------------------------------+
+| *PUT*    | Memperbarui suatu sumber daya di server |
++----------+-----------------------------------------+
+| *DELETE* | Menghapus suatu sumber daya dari server |
++----------+-----------------------------------------+
 
-With this in mind, you can imagine what an HTTP request might look like to
-delete a specific blog entry, for example:
+Dengan menaruh informasi ini dalam benak, anda dapat membayangkan seperti
+apa permintaan HTTP akan terlihat ketika akan menghapus suatu entri blog,
+contohnya:
 
 .. code-block:: text
 
@@ -96,16 +99,17 @@ delete a specific blog entry, for example:
 
 .. note::
 
-    There are actually nine HTTP methods defined by the HTTP specification,
-    but many of them are not widely used or supported. In reality, many modern
-    browsers don't support the ``PUT`` and ``DELETE`` methods.
+    Sebetulnya ada sembilan metode HTTP yang didefinisikan oleh
+    spesifikasi HTTP, tapi sebagian besar dari mereka tidak banyak digunakan
+    atau tidak didukung. Kenyataannya, banyak peramban web modern tidak
+    mendukung metode ``PUT`` and ``DELETE``.
 
-In addition to the first line, an HTTP request invariably contains other
-lines of information called request headers. The headers can supply a wide
-range of information such as the requested ``Host``, the response formats
-the client accepts (``Accept``) and the application the client is using to
-make the request (``User-Agent``). Many other headers exist and can be found
-on Wikipedia's `List of HTTP header fields`_ article.
+Selain baris pertama, permintaan HTTP selalu berisi informasi baris-baris
+lainnya yang disebut tajuk permintaan (request headers). Tajuk dapat
+menyediakan sejumlah besar informasi seperti ``Host`` yang diminta, format
+jawaban yang diterima klien (``Accept``) dan aplikasi yang digunakan klien
+untuk membuat permintaan tersebut (``User-Agent``). Ada banyak tajuk permintaan
+dan dapat ditemukan di artikel Wikipedia `List of HTTP header fields`_.
 
 Step 2: The Server Returns a Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
