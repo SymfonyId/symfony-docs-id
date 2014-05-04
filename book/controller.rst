@@ -4,15 +4,19 @@
 Controller
 ==========
 
-A controller is a PHP function you create that takes information from the
-HTTP request and constructs and returns an HTTP response (as a Symfony2
-``Response`` object). The response could be an HTML page, an XML document,
-a serialized JSON array, an image, a redirect, a 404 error or anything else
-you can dream up. The controller contains whatever arbitrary logic *your
-application* needs to render the content of a page.
+.. index::
+   single: Controller
 
-See how simple this is by looking at a Symfony2 controller in action.
-The following controller would render a page that simply prints ``Hello world!``::
+Controller
+==========
+
+Controller adalah sebuah fungsi PHP (method) yang berfungsi menangkap informasi dari sebuah HTTP request, 
+mengolahnya dan kemudian mengembalikannya sebagai HTTP response (Symfony2 ``Response`` object). 
+Response object dapat berupa/berisi HTML, XML, JSON, Gambar, redirect response, error response atau apapun 
+yang mungkin dapat Anda bayangkan. Controller berisi logic dari *program aplikasi* yang kamu 
+butuhkan untuk membangun sebuah program dan kemudian mengembalikan sebuah response.
+
+Perhatikan contoh berikut:
 
     use Symfony\Component\HttpFoundation\Response;
 
@@ -20,6 +24,8 @@ The following controller would render a page that simply prints ``Hello world!``
     {
         return new Response('Hello world!');
     }
+
+Program sederhana diatas akan mengembalikan response berupa text ``Hello Word``
 
 The goal of a controller is always the same: create and return a ``Response``
 object. Along the way, it might read information from the request, load a
