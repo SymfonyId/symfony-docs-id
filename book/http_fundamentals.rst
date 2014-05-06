@@ -111,20 +111,20 @@ jawaban yang diterima klien (``Accept``) dan aplikasi yang digunakan klien
 untuk membuat permintaan tersebut (``User-Agent``). Ada banyak tajuk permintaan
 dan dapat ditemukan di artikel Wikipedia `List of HTTP header fields`_.
 
-Step 2: The Server Returns a Response
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Langkah 2: Server Memberikan Jawaban
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once a server has received the request, it knows exactly which resource the
-client needs (via the URI) and what the client wants to do with that resource
-(via the method). For example, in the case of a GET request, the server
-prepares the resource and returns it in an HTTP response. Consider the response
-from the xkcd web server:
+Ketika server telah menerima permintaan, ia akan tahu sumber daya yang dibutuhkan
+klien (via URI) dan apa yang klien inginkan dengan sumber daya tersebut
+(via metode). Misalnya, dalam kasus permintaan GET, server menyediakan sumber
+daya dan membalasnya dalam bentuk jawaban HTTP. Perhatikan jawaban dari server
+xkcd berikut:
 
 .. image:: /images/http-xkcd.png
    :align: center
 
-Translated into HTTP, the response sent back to the browser will look something
-like this:
+Jika diterjemahkan ke HTTP, jawaban yang dikirim ke peramban web akan terlihat
+seperti berikut:
 
 .. code-block:: text
 
@@ -134,28 +134,29 @@ like this:
     Content-Type: text/html
 
     <html>
-      <!-- ... HTML for the xkcd comic -->
+      <!-- ... isi HTML komic xkcd -->
     </html>
 
-The HTTP response contains the requested resource (the HTML content in this
-case), as well as other information about the response. The first line is
-especially important and contains the HTTP response status code (200 in this
-case). The status code communicates the overall outcome of the request back
-to the client. Was the request successful? Was there an error? Different
-status codes exist that indicate success, an error, or that the client needs
-to do something (e.g. redirect to another page). A full list can be found
-on Wikipedia's `List of HTTP status codes`_ article.
+Jawaban HTTP berisi sumber daya yang diminta (dalam kasus ini adalah dokumen
+HTML-nya), beserta informasi lain yang terkait jawaban tersebut. Baris pertama
+sangatlah penting dan berisi kode status jawaban HTTP (dalam hal ini 200).
+Kode status menyampaikan hasil keseluruhan jawaban tersebut ke klien. Apakah
+permintaannya berhasil? Apakah terjadi kesalahan? Ada kode-kode status berbeda
+yang menunjukkan keberhasilan, kesalahan, atau klien harus melakukan sesuatu
+(misalnya, beralih ke halaman lain). Daftar lengkapnya dapat ditemukan di
+artikel Wikipedia `List of HTTP status codes`_.
 
-Like the request, an HTTP response contains additional pieces of information
-known as HTTP headers. For example, one important HTTP response header is
-``Content-Type``. The body of the same resource could be returned in multiple
-different formats like HTML, XML, or JSON and the ``Content-Type`` header uses
-Internet Media Types like ``text/html`` to tell the client which format is
-being returned. A list of common media types can be found on Wikipedia's
-`List of common media types`_ article.
+Sebagaimana permintaan, jawaban HTTP berisi serpihan informasi tambahan
+yang dikenal sebagai tajuk HTTP (HTTP headers). Misalnya, suatu tajuk jawaban
+HTTP yang penting adalah ``Content-Type``. Isi dari suatu sumber daya dapat
+dikembalikan dalam bentuk berbeda-beda seperti HTML, XML, atau JSON, dan
+tajuk ``Content-Type`` menggunakan Jenis-jenis Media Internet seperti
+``text/html`` untuk memberitahu klien format apa yang diberikan. Daftar
+jenis-jenis media yang lazim dipakai dapat ditemukan di artikel wikipedia
+`List of common media types`_.
 
-Many other headers exist, some of which are very powerful. For example, certain
-headers can be used to create a powerful caching system.
+Banyak tajuk-tajuk lain tersedia, sebagiannya sangatlah digdaya. Misalnya, beberapa
+tajuk dapat digunakan untuk membuat sistem tembolok (*cache*) yang ampuh.
 
 Requests, Responses and Web Development
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
