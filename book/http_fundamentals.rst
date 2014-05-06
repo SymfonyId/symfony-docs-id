@@ -158,29 +158,31 @@ jenis-jenis media yang lazim dipakai dapat ditemukan di artikel wikipedia
 Banyak tajuk-tajuk lain tersedia, sebagiannya sangatlah digdaya. Misalnya, beberapa
 tajuk dapat digunakan untuk membuat sistem tembolok (*cache*) yang ampuh.
 
-Requests, Responses and Web Development
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Permintaan, Jawaban, dan Pengembangan Web
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This request-response conversation is the fundamental process that drives all
-communication on the web. And as important and powerful as this process is,
-it's inescapably simple.
+Percakapan permintaan-jawaban ini adalah proses dasar yang menggerakkan
+semua komunikasi di web. Sebagaimana penting dan digdayanya proses ini,
+ia juga sangat sederhana.
 
-The most important fact is this: regardless of the language you use, the
-type of application you build (web, mobile, JSON API), or the development
-philosophy you follow, the end goal of an application is **always** to understand
-each request and create and return the appropriate response.
+Kenyataan terpenting adalah: tanpa memandang bahasa program yang anda gunakan,
+aplikasi yang anda kembangkan (web, mobile, JSON API), ataupun falsafah
+pengembangan yang anda ikuti, tujuan akhir dari suatu aplikasi
+adalah **selalu** berusaha mengerti setiap permintaan dan membuat
+serta memberikan jawaban yang sesuai.
 
-Symfony is architected to match this reality.
+Symfony dirancang agar sesuai dengan kenyataan ini.
 
 .. tip::
 
-    To learn more about the HTTP specification, read the original `HTTP 1.1 RFC`_
-    or the `HTTP Bis`_, which is an active effort to clarify the original
-    specification. A great tool to check both the request and response headers
-    while browsing is the `Live HTTP Headers`_ extension for Firefox.
+    Untuk mempelajari lebih lanjut mengenai spesifikasi HTTP, bacalah dokumen
+    asli `HTTP 1.1 RFC`_ atau `HTTP Bis`_, yang merupakan upaya aktif untuk
+    menerangkan spesifikasi asli. Suatu alat cemerlang untuk memeriksa tajuk
+    permintaan dan jawaban ketika sedang meramban web adalah ekstensi
+    `Live HTTP Headers`_ untuk Firefox.
 
 .. index::
-   single: Symfony2 Fundamentals; Requests and responses
+   single: Dasar-dasar Symfony2; Permintaan dan jawaban
 
 Requests and Responses in PHP
 -----------------------------
