@@ -184,27 +184,28 @@ Symfony dirancang agar sesuai dengan kenyataan ini.
 .. index::
    single: Dasar-dasar Symfony2; Permintaan dan jawaban
 
-Requests and Responses in PHP
+Permintaan dan Jawaban di PHP
 -----------------------------
 
-So how do you interact with the "request" and create a "response" when using
-PHP? In reality, PHP abstracts you a bit from the whole process::
+Jadi bagaimana anda berinteraksi dengan "permintaan" dan membuat "jawaban"
+ketika menggunakan PHP? Kenyataannya, PHP mengintisarikannya untuk anda dari
+keseluruhan proses::
 
     $uri = $_SERVER['REQUEST_URI'];
     $foo = $_GET['foo'];
 
     header('Content-type: text/html');
-    echo 'The URI requested is: '.$uri;
-    echo 'The value of the "foo" parameter is: '.$foo;
+    echo 'URI yang diminta adalah: '.$uri;
+    echo 'Nilai dari parameter "foo" adalah: '.$foo;
 
-As strange as it sounds, this small application is in fact taking information
-from the HTTP request and using it to create an HTTP response. Instead of
-parsing the raw HTTP request message, PHP prepares superglobal variables
-such as ``$_SERVER`` and ``$_GET`` that contain all the information from
-the request. Similarly, instead of returning the HTTP-formatted text response,
-you can use the ``header()`` function to create response headers and simply
-print out the actual content that will be the content portion of the response
-message. PHP will create a true HTTP response and return it to the client:
+Seaneh terdengarnya, aplikasi kecil ini nyatanya mengambil informasi dari
+permintaan HTTP dan menggunakannya untuk membuat jawaban HTTP. Alih-alih
+mengurai pesan mentah permintaan HTTP, PHP menyiapkan variabel superglobal
+seperti ``$_SERVER`` dan ``$_GET`` yang berisi seluruh informasi dari permintaan
+tersebut. Serupa dengan itu, alih-alih memberikan jawaban teks terformat HTTP,
+anda dapat menggunakan fungsi ``header()`` untuk membuat tajuk jawaban dan
+menampilkan isi sebenarnya yang akan menjadi bagian dari isi pesan jawaban.
+PHP akan membuat jawaban HTTP sejati dan memberikannya ke klien:
 
 .. code-block:: text
 
@@ -213,8 +214,8 @@ message. PHP will create a true HTTP response and return it to the client:
     Server: Apache/2.2.17 (Unix)
     Content-Type: text/html
 
-    The URI requested is: /testing?foo=symfony
-    The value of the "foo" parameter is: symfony
+    URI yang diminta adalah: /tes?foo=symfony
+    Nilai dari parameter "foo" adalah: symfony
 
 Requests and Responses in Symfony
 ---------------------------------
