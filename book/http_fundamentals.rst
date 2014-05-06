@@ -217,95 +217,101 @@ PHP akan membuat jawaban HTTP sejati dan memberikannya ke klien:
     URI yang diminta adalah: /tes?foo=symfony
     Nilai dari parameter "foo" adalah: symfony
 
-Requests and Responses in Symfony
+Permintaan dan Jawaban di Symfony
 ---------------------------------
 
-Symfony provides an alternative to the raw PHP approach via two classes that
-allow you to interact with the HTTP request and response in an easier way.
-The :class:`Symfony\\Component\\HttpFoundation\\Request` class is a simple
-object-oriented representation of the HTTP request message. With it, you
-have all the request information at your fingertips::
+Symfony menyediakan cara alternatif terhadap pendekatan mentah PHP diatas
+menggunakan dua class yang membuat anda dapat berinteraksi dengan permintaan
+dan jawaban HTTP dengan lebih mudah. Class
+:class:`Symfony\\Component\\HttpFoundation\\Request` adalah perwakilan lugas
+berorientasi-objek dari suatu pesan jawaban HTTP. Dengannya, anda memegang
+seluruh informasi permintaan di ujung jari anda::
 
     use Symfony\Component\HttpFoundation\Request;
 
     $request = Request::createFromGlobals();
 
-    // the URI being requested (e.g. /about) minus any query parameters
+    // URI yang sedang diminta (misal /tentangkami) tanpa parameter query apapun
     $request->getPathInfo();
 
-    // retrieve GET and POST variables respectively
+    // secara berurutan mengambil variabel GET dan POST
     $request->query->get('foo');
-    $request->request->get('bar', 'default value if bar does not exist');
+    $request->request->get('bar', 'nilai patokan jika variabel bar tak berwujud');
 
-    // retrieve SERVER variables
+    // mengambil variabel-variabel SERVER
     $request->server->get('HTTP_HOST');
 
-    // retrieves an instance of UploadedFile identified by foo
+    // mengambil petikan UploadedFile yang diidentifikasi oleh variabel foo
     $request->files->get('foo');
 
-    // retrieve a COOKIE value
+    // mengambil suatu nilai COOKIE
     $request->cookies->get('PHPSESSID');
 
-    // retrieve an HTTP request header, with normalized, lowercase keys
+    // mengambil tajuk permintaan HTTP, ternormalisasi, berhuruf kecil
     $request->headers->get('host');
     $request->headers->get('content_type');
 
     $request->getMethod();          // GET, POST, PUT, DELETE, HEAD
-    $request->getLanguages();       // an array of languages the client accepts
+    $request->getLanguages();       // array (tumpukan) bahasa yang dapat diterima klien
 
-As a bonus, the ``Request`` class does a lot of work in the background that
-you'll never need to worry about. For example, the ``isSecure()`` method
-checks the *three* different values in PHP that can indicate whether or not
-the user is connecting via a secured connection (i.e. HTTPS).
+Sebagai hadiah, class ``Request`` benar-benar melakukan banyak pekerjaan
+di latar belakang di mana anda tak perlu khawatir tentang itu. Misalnya,
+metode ``isSecure()`` memeriksa *tiga* nilai berbeda di PHP yang dapat
+menunjukkan apakah pengguna terhubung menggunakan koneksi aman (misalnya HTTPS)
+atau tidak.
 
-.. sidebar:: ParameterBags and Request Attributes
+.. sidebar:: Atribut-atribut ParameterBag dan Request
 
-    As seen above, the ``$_GET`` and ``$_POST`` variables are accessible via
-    the public ``query`` and ``request`` properties respectively. Each of
-    these objects is a :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`
-    object, which has methods like
+    Seperti terlihat di atas, variabel ``$_GET`` dan ``$_POST`` dapat diakses
+    menggunakan properti padanan ``query`` dan ``request``. Masing-masingnya
+    adalah objek :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`,
+    yang memiliki metode-metode seperti
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::get`,
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::has`,
-    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` and more.
-    In fact, every public property used in the previous example is some instance
-    of the ParameterBag.
+    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all`
+    dan banyak lainnya.
+    Bahkan, setiap properti publik yang digunakan di contoh sebelumnya adalah
+    petikan ParameterBag.
 
     .. _book-fundamentals-attributes:
 
-    The Request class also has a public ``attributes`` property, which holds
-    special data related to how the application works internally. For the
-    Symfony2 framework, the ``attributes`` holds the values returned by the
-    matched route, like ``_controller``, ``id`` (if you have an ``{id}``
-    wildcard), and even the name of the matched route (``_route``). The
-    ``attributes`` property exists entirely to be a place where you can
-    prepare and store context-specific information about the request.
+    Class Request juga memiliki properti ``attributes``, yang menampung
+    data khusus terkait bagaimana aplikasi bekerja secara internal. Untuk
+    framework Symfony2, ``attributes`` menampung nilai-nilai yang dikembalikan
+    oleh rute bersesuaian, seperti ``_controller``, ``id`` (jika anda mempunyai
+    wildcard ``{id}``), dan bahkan nama dari rute yang sesuai tersebut (``_route``).
+    Properti ``attributes`` secara keseluruhan adalah untuk menjadi tempat
+    di mana anda dapat menyiapkan dan menyimpan informasi spesifik-konteks
+    mengenai suatu permintaan.
 
-Symfony also provides a ``Response`` class: a simple PHP representation of
-an HTTP response message. This allows your application to use an object-oriented
-interface to construct the response that needs to be returned to the client::
+Symfony juga menyediakan class ``Response``: representasi PHP sederhana untuk
+pesan jawaban HTTP. Ini membuat aplikasi anda dapat menggunakan antarmuka
+berorientasi-objek untuk membentuk jawaban yang diperlukan untuk dikirim
+ke klien::
 
     use Symfony\Component\HttpFoundation\Response;
     $response = new Response();
 
-    $response->setContent('<html><body><h1>Hello world!</h1></body></html>');
+    $response->setContent('<html><body><h1>Halo dunia!</h1></body></html>');
     $response->setStatusCode(200);
     $response->headers->set('Content-Type', 'text/html');
 
-    // prints the HTTP headers followed by the content
+    // cetak tajuk HTTP diikuti oleh isinya
     $response->send();
 
-If Symfony offered nothing else, you would already have a toolkit for easily
-accessing request information and an object-oriented interface for creating
-the response. Even as you learn the many powerful features in Symfony, keep
-in mind that the goal of your application is always *to interpret a request
-and create the appropriate response based on your application logic*.
+Andaipun Symfony tak menawarkan hal lain lagi, anda sudah memiliki perkakas
+untuk mengakses dengan mudah informasi permintaan dan antarmuka berorientasi-objek
+untuk membuat jawaban. Bahkan jika anda mempelajari banyak fitur-fitur digdaya di
+Symfony, camkan dalam benak bahwa tujuan aplikasi anda adalah *menerjemahkan
+suatu permintaan dan membuat jawaban yang sesuai berdasarkan logika aplikasi
+anda*.
 
 .. tip::
 
-    The ``Request`` and ``Response`` classes are part of a standalone component
-    included with Symfony called HttpFoundation. This component can be
-    used entirely independently of Symfony and also provides classes for handling
-    sessions and file uploads.
+    Class ``Request`` dan ``Response`` adalah bagian dari komponen mandiri
+    yang disertakan dalam Symfony yang disebut HttpFoundation. Komponen ini
+    dapat sepenuhnya digunakan terpisah dari Symfony dan ia juga menyediakan
+    class untuk mengelola session dan pengunggahan berkas.
 
 The Journey from the Request to the Response
 --------------------------------------------
