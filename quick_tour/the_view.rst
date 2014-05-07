@@ -18,15 +18,16 @@ Template Twig berupa sebuah file yang dapat digunakan untuk menghasilkan berbaga
 macam tipe dokumen (HTML, CSS, JavaScript, XML, CSV, LaTeX, ...). Elemen khusus
 Twig ditandai secara khusus dengan menggunakan karakter pemisah berikut ini:
 
-* ``{{ ... }}``: prints the content of a variable or the result of an expression;
+* ``{{ ... }}``: mencetak isi variabel atau hasil ekspresi;
 
-* ``{% ... %}``: controls the logic of the template; it is used for example to
-  execute ``for`` loops and ``if`` statements;
+* ``{% ... %}``: mengatur alur berpikir template, misalnya untuk menjalankan
+  perintah perulangan ``for`` dan ``if``;
 
-* ``{# ... #}``: allows including comments inside templates.
+* ``{# ... #}``: untuk menambahkan komentar di dalam template.
 
-Below is a minimal template that illustrates a few basics, using two variables
-``page_title`` and ``navigation``, which would be passed into the template:
+Berikut ini contoh penggunaan ketiga perintah di atas dalam template sederhana
+dengan dua variabel ``page_title`` dan ``navigation`` yang sudah diberikan ke
+template:
 
 .. code-block:: html+jinja
 
@@ -46,49 +47,52 @@ Below is a minimal template that illustrates a few basics, using two variables
         </body>
     </html>
 
-To render a template in Symfony, use the ``render`` method from within a controller
-and pass the variables needed as an array using the optional second argument::
+Untuk menampilkan template dalam Symfony, gunakan fungsi ``render`` di dalam
+kontroller dan berikan variabel yang dibutuhkan sebagai array
+di parameter ke dua yang bersifat opsional:
+
+.. code-block:: jinja
 
     $this->render('AcmeDemoBundle:Demo:hello.html.twig', array(
         'name' => $name,
     ));
 
-Variables passed to a template can be strings, arrays, or even objects. Twig
-abstracts the difference between them and lets you access "attributes" of a
-variable with the dot (``.``) notation. The following code listing shows how to
-display the content of a variable depending on the type of the variable passed
-by the controller:
+Variabel yang diberikan ke template dapat berupa string, array, atau bahkan
+berupa objek. Twig sudah membuat fungsi abstrak untuk menyamakan perbedaan
+diantara tiga tipe tersebut sehingga kita bisa mengakses atribut dari variabel
+dengan notasi (``.``) dot. Kode berikut ini memberi contoh cara menampilkan
+isi variabel sesuai tipe variabel yang diberikan dari kontroller:
 
 .. code-block:: jinja
 
-    {# 1. Simple variables #}
+    {# 1. Variabel sederhana #}
     {# array('name' => 'Fabien') #}
     {{ name }}
 
-    {# 2. Arrays #}
+    {# 2. Array #}
     {# array('user' => array('name' => 'Fabien')) #}
     {{ user.name }}
 
-    {# alternative syntax for arrays #}
+    {# sintak lain untuk array #}
     {{ user['name'] }}
 
-    {# 3. Objects #}
+    {# 3. Objek #}
     {# array('user' => new User('Fabien')) #}
     {{ user.name }}
     {{ user.getName }}
 
-    {# alternative syntax for objects #}
+    {# sintak lain untuk objek #}
     {{ user.name() }}
     {{ user.getName() }}
 
-Decorating Templates
+Menghias Template
 --------------------
 
-More often than not, templates in a project share common elements, like the
-well-known header and footer. Twig solves this problem elegantly with a concept
-called "template inheritance". This feature allows you to build a base "layout"
-template that contains all the common elements of your site and defines "blocks"
-that child templates can override.
+Template dalam sebuah projek biasanya menggunakan element umum yang sama, seperti
+elemen header dan footer. Twig mengatasi hal ini secara elegan dengan konsep 
+"Pewarisan Template". Konsep ini memungkinkan kita untuk membuat sebuah template
+dasar yang mengandung semua elemen umum dari web kita dengan beberapa definisi
+"blok", dimana blok ini dapat diganti isinya dari template anak.
 
 The ``hello.html.twig`` template uses the ``extends`` tag to indicate that it
 inherits from the common ``layout.html.twig`` template:
