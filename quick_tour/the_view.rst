@@ -94,26 +94,26 @@ elemen header dan footer. Twig mengatasi hal ini secara elegan dengan konsep
 dasar yang mengandung semua elemen umum dari web kita dengan beberapa definisi
 "blok", dimana blok ini dapat diganti isinya dari template anak.
 
-The ``hello.html.twig`` template uses the ``extends`` tag to indicate that it
-inherits from the common ``layout.html.twig`` template:
+Berikut ini contoh template ``hello.html.twig`` yang menggunakan tag ``extends``
+untuk mendefinisikan ``layout.html.twig`` sebagai template induk:
 
 .. code-block:: html+jinja
 
-    {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
+    {# lokasi file : src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
 
-    {% block title "Hello " ~ name %}
+    {% block title "Halo " ~ name %}
 
     {% block content %}
-        <h1>Hello {{ name }}!</h1>
+        <h1>Halo {{ name }}!</h1>
     {% endblock %}
 
-The ``AcmeDemoBundle::layout.html.twig`` notation sounds familiar, doesn't it?
-It is the same notation used to reference a regular template. The ``::`` part
-simply means that the controller element is empty, so the corresponding file
-is directly stored under the ``Resources/views/`` directory of the bundle.
+Pasti kita sudah terbiasa dengan kode ``AcmeDemoBundle::layout.html.twig``.
+Kode ini digunakan untuk mereferensikan lokasi file template. Bagian ``::`` 
+menandakan bahwa tidak ada nama kontroller di lokasi template, jadi file tersebut
+berada tepat di folder ``Resources/views/`` dari folder bundle.
 
-Now, simplify the ``layout.html.twig`` template:
+Sekarang kita sederhanakan lagi file template ``layout.html.twig`` sebagai berikut:
 
 .. code-block:: jinja
 
@@ -123,11 +123,18 @@ Now, simplify the ``layout.html.twig`` template:
         {% endblock %}
     </div>
 
-The ``{% block %}`` tags tell the template engine that a child template may
-override those portions of the template. In this example, the ``hello.html.twig``
-template overrides the ``content`` block, meaning that the "Hello Fabien" text
-is rendered inside the ``<div>`` element.
+Kode tag ``{% block %}`` menandakan bahwa bagian ini bisa didefinisikan ulang
+oleh template anak. Pada contoh di atas, file template ``hello.html.twig``
+mendefinisikan ulang bagian ``content``. Apabila variabel ``name`` diberi nilai
+``Fabien``, berarti tulisan "Halo Fabien!" akan ditampilkan didalam elemen ``<div>``
+seperti berikut:
 
+.. code-block:: jinja
+
+    <div>
+        <h1>Halo Fabien!</h1>
+    </div>
+    
 Using Tags, Filters, and Functions
 ----------------------------------
 
