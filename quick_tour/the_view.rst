@@ -14,9 +14,9 @@ Mempelajari Twig lebih dalam
 sesuatu tentang pengolah template yang baru ini. Bagian ini hanya menjelaskan
 secara singkat tentang konsep utamanya.
 
-A Twig template is a text file that can generate any type of content (HTML, CSS,
-JavaScript, XML, CSV, LaTeX, ...). Twig elements are separated from the rest of
-the template contents using any of these delimiters:
+Template Twig berupa sebuah file yang dapat digunakan untuk menghasilkan berbagai
+macam tipe dokumen (HTML, CSS, JavaScript, XML, CSV, LaTeX, ...). Elemen khusus
+Twig ditandai secara khusus dengan menggunakan karakter pemisah berikut ini:
 
 * ``{{ ... }}``: prints the content of a variable or the result of an expression;
 

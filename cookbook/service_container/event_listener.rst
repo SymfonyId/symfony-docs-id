@@ -43,16 +43,13 @@ event is just one of the core kernel events::
                 $response->setStatusCode($exception->getStatusCode());
                 $response->headers->replace($exception->getHeaders());
             } else {
-                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+                $response->setStatusCode(500);
             }
 
             // Send the modified response object to the event
             $event->setResponse($response);
         }
     }
-
-.. versionadded:: 2.4
-    Support for HTTP status code constants was introduced in Symfony 2.4.
 
 .. tip::
 

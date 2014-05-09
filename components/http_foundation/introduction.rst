@@ -248,13 +248,10 @@ by using the following methods:
   returns the list of accepted languages ordered by descending quality;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Request::getCharsets`:
-  returns the list of accepted charsets ordered by descending quality;
+  returns the list of accepted charsets ordered by descending quality.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Request::getEncodings`:
-  returns the list of accepted charsets ordered by descending quality;
-
-  .. versionadded:: 2.4
-      The ``getEncodings()`` method was introduced in Symfony 2.4.
+.. versionadded:: 2.2
+    The :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` class is new in Symfony 2.2.
 
 If you need to get full access to parsed data from ``Accept``, ``Accept-Language``,
 ``Accept-Charset`` or ``Accept-Encoding``, you can use
@@ -281,42 +278,6 @@ request information. Have a look at
 :class:`the Request API <Symfony\\Component\\HttpFoundation\\Request>`
 for more information about them.
 
-Overriding the Request
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.4
-    The :method:`Symfony\\Component\\HttpFoundation\\Request::setFactory`
-    method was introduced in Symfony 2.4.
-
-The ``Request`` class should not be overridden as it is a data object that
-represents an HTTP message. But when moving from a legacy system, adding
-methods or changing some default behavior might help. In that case, register a
-PHP callable that is able to create an instance of your ``Request`` class::
-
-    use Symfony\Component\HttpFoundation\Request;
-
-    Request::setFactory(function (
-        array $query = array(),
-        array $request = array(),
-        array $attributes = array(),
-        array $cookies = array(),
-        array $files = array(),
-        array $server = array(),
-        $content = null
-    ) {
-        return SpecialRequest::create(
-            $query,
-            $request,
-            $attributes,
-            $cookies,
-            $files,
-            $server,
-            $content
-        );
-    });
-
-    $request = Request::createFromGlobals();
-
 .. _component-http-foundation-response:
 
 Response
@@ -331,12 +292,9 @@ code, and an array of HTTP headers::
 
     $response = new Response(
         'Content',
-        Response::HTTP_OK,
+        200,
         array('content-type' => 'text/html')
     );
-
-.. versionadded:: 2.4
-    Support for HTTP status code constants was introduced in Symfony 2.4.
 
 These information can also be manipulated after the Response object creation::
 
@@ -345,7 +303,7 @@ These information can also be manipulated after the Response object creation::
     // the headers public attribute is a ResponseHeaderBag
     $response->headers->set('Content-Type', 'text/plain');
 
-    $response->setStatusCode(Response::HTTP_NOT_FOUND);
+    $response->setStatusCode(404);
 
 When setting the ``Content-Type`` of the Response, you can set the charset,
 but it is better to set it via the
@@ -489,6 +447,10 @@ abstracts the hard work behind a simple API::
     );
 
     $response->headers->set('Content-Disposition', $d);
+
+.. versionadded:: 2.2
+    The :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`
+    class was introduced in Symfony 2.2.
 
 Alternatively, if you are serving a static file, you can use a
 :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::

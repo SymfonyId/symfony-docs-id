@@ -15,7 +15,6 @@ The Cookbook
     doctrine/index
     email/index
     event_dispatcher/index
-    expression/index
     form/index
     logging/index
     profiler/index

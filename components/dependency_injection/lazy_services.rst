@@ -40,7 +40,7 @@ the `ProxyManager bridge`_:
     .. code-block:: json
 
         "require": {
-            "ocramius/proxy-manager": "0.5.*"
+            "ocramius/proxy-manager": "0.4.*"
         }
     
     to your ``composer.json``. Afterwards compile your container and check

@@ -1,62 +1,65 @@
 .. index::
-   single: Symfony2 Fundamentals
+   single: Dasar-dasar Symfony2
 
-Symfony2 and HTTP Fundamentals
-==============================
+Dasar-dasar Symfony2 and HTTP
+=============================
 
-Congratulations! By learning about Symfony2, you're well on your way towards
-being a more *productive*, *well-rounded* and *popular* web developer (actually,
-you're on your own for the last part). Symfony2 is built to get back to
-basics: to develop tools that let you develop faster and build more robust
-applications, while staying out of your way. Symfony is built on the best
-ideas from many technologies: the tools and concepts you're about to learn
-represent the efforts of thousands of people, over many years. In other words,
-you're not just learning "Symfony", you're learning the fundamentals of the
-web, development best practices, and how to use many amazing new PHP libraries,
-inside or independently of Symfony2. So, get ready.
+Selamat! Dengan mempelajari Symfony2, anda telah berada di jalur yang akan membuat
+anda menjadi pengembang web yang lebih *produktif*, *paripurna*, dan *populer*
+(sebetulnya, anda harus berusaha sendiri untuk hal yang terakhir).
+Symfony2 diwujudkan agar kembali ke dasar: membuat perkakas agar anda
+dapat membuat dan mengembangkan aplikasi-aplikasi yang lebih tangguh,
+keluar dari cara anda biasanya. Symfony diwujudkan berlandaskan ide-ide terbaik
+dari berbagai teknologi: perkakas dan konsep yang akan anda pelajari mencerminkan
+karya ribuan orang selama bertahun-tahun. Dengan kata lain, anda tidak hanya
+mempelajari "Symfony", tapi anda mempelajari hakikat web, cara-cara terbaik
+mengembangkan aplikasi, dan cara menggunakan berbagai pustaka PHP baru yang mempesona,
+dengan atau tanpa Symfony2. Jadi, bersiaplah.
 
-True to the Symfony2 philosophy, this chapter begins by explaining the fundamental
-concept common to web development: HTTP. Regardless of your background or
-preferred programming language, this chapter is a **must-read** for everyone.
+Bersesuaian dengan falsafah Symfony2, bab ini bermula dengan menjelaskan
+hakikat konsep yang umum di bidang pengembangan web: HTTP. Tak peduli latar
+belakang atau bahasa program kegemaran anda, bab ini menjadi hal
+yang **harus-dibaca** untuk setiap orang.
 
-HTTP is Simple
---------------
+HTTP itu Sederhana
+------------------
 
-HTTP (Hypertext Transfer Protocol to the geeks) is a text language that allows
-two machines to communicate with each other. That's it! For example, when
-checking for the latest `xkcd`_ comic, the following (approximate) conversation
-takes place:
+HTTP (Hypertext Transfer Protocol, bagi penggemar komputer) adalah bahasa tulis
+yang membuat dua mesin dapat berkomunikasi satu sama lain. Itu saja!
+Misalnya, ketika menyelidik komik `xkcd`_, percakapan berikut (kira-kira) terjadi:
 
 .. image:: /images/http-xkcd.png
    :align: center
 
-And while the actual language used is a bit more formal, it's still dead-simple.
-HTTP is the term used to describe this simple text-based language. And no
-matter how you develop on the web, the goal of your server is *always* to
-understand simple text requests, and return simple text responses.
+Walaupun bahasa yang digunakan sedikit lebih formal, ia masih tetap sederhana.
+HTTP adalah istilah yang digunakan untuk menggambarkan bahasa tulis ini.
+Dan tak peduli bagaimana anda bekerja dengan web, tujuan akhir server anda adalah
+*selalu* untuk memahami permintaan teks sederhana dan mengembalikan jawaban
+sederhana.
 
-Symfony2 is built from the ground-up around that reality. Whether you realize
-it or not, HTTP is something you use everyday. With Symfony2, you'll learn
-how to master it.
+Symfony2 diwujudkan berdasar dari kenyataan tersebut. Entah anda menyadari
+atau tidak, HTTP adalah sesuatu yang anda gunakan tiap hari. Dengan Symfony2,
+anda akan belajar cara memahaminya.
 
 .. index::
-   single: HTTP; Request-response paradigm
+   single: HTTP; Paradigma Permintaan-jawaban
 
-Step1: The Client Sends a Request
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Langkah 1: Klien Mengirim Permintaan
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every conversation on the web starts with a *request*. The request is a text
-message created by a client (e.g. a browser, an iPhone app, etc) in a
-special format known as HTTP. The client sends that request to a server,
-and then waits for the response.
+Setiap percakapan di web bermula dari sebuah *permintaan*. Permintaan adalah
+pesan teks yang dibuat oleh klien (misalnya peramban web, aplikasi iPhone, dll)
+dalam format khusus yang dikenal sebagai HTTP. Klien mengirimkan
+permintaan tersebut ke server lalu menunggu jawabannya.
 
-Take a look at the first part of the interaction (the request) between a
-browser and the xkcd web server:
+Perhatikanlah bagian pertama dari interaksi (permintaan) antara peramban
+dan server web xkcd:
 
 .. image:: /images/http-xkcd-request.png
    :align: center
 
-In HTTP-speak, this HTTP request would actually look something like this:
+Dalam konteks pembicaraan HTTP, permintaan HTTP ini sebenarnya akan terlihat
+seperti ini:
 
 .. code-block:: text
 
@@ -65,28 +68,30 @@ In HTTP-speak, this HTTP request would actually look something like this:
     Accept: text/html
     User-Agent: Mozilla/5.0 (Macintosh)
 
-This simple message communicates *everything* necessary about exactly which
-resource the client is requesting. The first line of an HTTP request is the
-most important and contains two things: the URI and the HTTP method.
+Pesan lugas ini menyampaikan *semua hal* yang diperlukan, tepat berkaitan
+dengan sumber daya yang sedang diminta klien. Baris pertama permintaan
+HTTP adalah yang terpenting dan berisi dua hal: URI dan metode HTTP.
 
-The URI (e.g. ``/``, ``/contact``, etc) is the unique address or location
-that identifies the resource the client wants. The HTTP method (e.g. ``GET``)
-defines what you want to *do* with the resource. The HTTP methods are the
-*verbs* of the request and define the few common ways that you can act upon
-the resource:
+URI (misalnya ``/``, ``/kontak``, dll) adalah alamat unik atau lokasi
+yang mengidentifikasi sumber daya yang diinginkan klien. Metode HTTP
+(misalnya ``GET``) mendefinisikan apa yang ingin anda *lakukan* terhadap
+sumber daya tersebut. Metode-metode HTTP adalah *kata-kerja* dari permintaan
+tersebut dan mendefinisikan cara-cara umum yang bisa anda buat terhadap
+sumber daya tersebut:
 
-+----------+---------------------------------------+
-| *GET*    | Retrieve the resource from the server |
-+----------+---------------------------------------+
-| *POST*   | Create a resource on the server       |
-+----------+---------------------------------------+
-| *PUT*    | Update the resource on the server     |
-+----------+---------------------------------------+
-| *DELETE* | Delete the resource from the server   |
-+----------+---------------------------------------+
++----------+-----------------------------------------+
+| *GET*    | Mengambil suatu sumber daya dari server |
++----------+-----------------------------------------+
+| *POST*   | Membuat suatu sumber daya di server     |
++----------+-----------------------------------------+
+| *PUT*    | Memperbarui suatu sumber daya di server |
++----------+-----------------------------------------+
+| *DELETE* | Menghapus suatu sumber daya dari server |
++----------+-----------------------------------------+
 
-With this in mind, you can imagine what an HTTP request might look like to
-delete a specific blog entry, for example:
+Dengan menaruh informasi ini dalam benak, anda dapat membayangkan seperti
+apa permintaan HTTP akan terlihat ketika akan menghapus suatu entri blog,
+contohnya:
 
 .. code-block:: text
 
@@ -94,31 +99,32 @@ delete a specific blog entry, for example:
 
 .. note::
 
-    There are actually nine HTTP methods defined by the HTTP specification,
-    but many of them are not widely used or supported. In reality, many modern
-    browsers don't support the ``PUT`` and ``DELETE`` methods.
+    Sebetulnya ada sembilan metode HTTP yang didefinisikan oleh
+    spesifikasi HTTP, tapi sebagian besar dari mereka tidak banyak digunakan
+    atau tidak didukung. Kenyataannya, banyak peramban web modern tidak
+    mendukung metode ``PUT`` and ``DELETE``.
 
-In addition to the first line, an HTTP request invariably contains other
-lines of information called request headers. The headers can supply a wide
-range of information such as the requested ``Host``, the response formats
-the client accepts (``Accept``) and the application the client is using to
-make the request (``User-Agent``). Many other headers exist and can be found
-on Wikipedia's `List of HTTP header fields`_ article.
+Selain baris pertama, permintaan HTTP selalu berisi informasi baris-baris
+lainnya yang disebut tajuk permintaan (request headers). Tajuk dapat
+menyediakan sejumlah besar informasi seperti ``Host`` yang diminta, format
+jawaban yang diterima klien (``Accept``) dan aplikasi yang digunakan klien
+untuk membuat permintaan tersebut (``User-Agent``). Ada banyak tajuk permintaan
+dan dapat ditemukan di artikel Wikipedia `List of HTTP header fields`_.
 
-Step 2: The Server Returns a Response
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Langkah 2: Server Memberikan Jawaban
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once a server has received the request, it knows exactly which resource the
-client needs (via the URI) and what the client wants to do with that resource
-(via the method). For example, in the case of a GET request, the server
-prepares the resource and returns it in an HTTP response. Consider the response
-from the xkcd web server:
+Ketika server telah menerima permintaan, ia akan tahu sumber daya yang dibutuhkan
+klien (via URI) dan apa yang klien inginkan dengan sumber daya tersebut
+(via metode). Misalnya, dalam kasus permintaan GET, server menyediakan sumber
+daya dan membalasnya dalam bentuk jawaban HTTP. Perhatikan jawaban dari server
+xkcd berikut:
 
 .. image:: /images/http-xkcd.png
    :align: center
 
-Translated into HTTP, the response sent back to the browser will look something
-like this:
+Jika diterjemahkan ke HTTP, jawaban yang dikirim ke peramban web akan terlihat
+seperti berikut:
 
 .. code-block:: text
 
@@ -128,28 +134,29 @@ like this:
     Content-Type: text/html
 
     <html>
-      <!-- ... HTML for the xkcd comic -->
+      <!-- ... isi HTML komic xkcd -->
     </html>
 
-The HTTP response contains the requested resource (the HTML content in this
-case), as well as other information about the response. The first line is
-especially important and contains the HTTP response status code (200 in this
-case). The status code communicates the overall outcome of the request back
-to the client. Was the request successful? Was there an error? Different
-status codes exist that indicate success, an error, or that the client needs
-to do something (e.g. redirect to another page). A full list can be found
-on Wikipedia's `List of HTTP status codes`_ article.
+Jawaban HTTP berisi sumber daya yang diminta (dalam kasus ini adalah dokumen
+HTML-nya), beserta informasi lain yang terkait jawaban tersebut. Baris pertama
+sangatlah penting dan berisi kode status jawaban HTTP (dalam hal ini 200).
+Kode status menyampaikan hasil keseluruhan jawaban tersebut ke klien. Apakah
+permintaannya berhasil? Apakah terjadi kesalahan? Ada kode-kode status berbeda
+yang menunjukkan keberhasilan, kesalahan, atau klien harus melakukan sesuatu
+(misalnya, beralih ke halaman lain). Daftar lengkapnya dapat ditemukan di
+artikel Wikipedia `List of HTTP status codes`_.
 
-Like the request, an HTTP response contains additional pieces of information
-known as HTTP headers. For example, one important HTTP response header is
-``Content-Type``. The body of the same resource could be returned in multiple
-different formats like HTML, XML, or JSON and the ``Content-Type`` header uses
-Internet Media Types like ``text/html`` to tell the client which format is
-being returned. A list of common media types can be found on Wikipedia's
-`List of common media types`_ article.
+Sebagaimana permintaan, jawaban HTTP berisi serpihan informasi tambahan
+yang dikenal sebagai tajuk HTTP (HTTP headers). Misalnya, suatu tajuk jawaban
+HTTP yang penting adalah ``Content-Type``. Isi dari suatu sumber daya dapat
+dikembalikan dalam bentuk berbeda-beda seperti HTML, XML, atau JSON, dan
+tajuk ``Content-Type`` menggunakan Jenis-jenis Media Internet seperti
+``text/html`` untuk memberitahu klien format apa yang diberikan. Daftar
+jenis-jenis media yang lazim dipakai dapat ditemukan di artikel wikipedia
+`List of common media types`_.
 
-Many other headers exist, some of which are very powerful. For example, certain
-headers can be used to create a powerful caching system.
+Banyak tajuk-tajuk lain tersedia, sebagiannya sangatlah digdaya. Misalnya, beberapa
+tajuk dapat digunakan untuk membuat sistem tembolok (*cache*) yang ampuh.
 
 Requests, Responses and Web Development
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -278,14 +285,11 @@ interface to construct the response that needs to be returned to the client::
     $response = new Response();
 
     $response->setContent('<html><body><h1>Hello world!</h1></body></html>');
-    $response->setStatusCode(Response::HTTP_OK);
+    $response->setStatusCode(200);
     $response->headers->set('Content-Type', 'text/html');
 
     // prints the HTTP headers followed by the content
     $response->send();
-
-.. versionadded:: 2.4
-    Support for HTTP status code constants was introduced in Symfony 2.4.
 
 If Symfony offered nothing else, you would already have a toolkit for easily
 accessing request information and an object-oriented interface for creating
@@ -367,7 +371,6 @@ on that value. This can get ugly quickly::
     // index.php
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
-
     $request = Request::createFromGlobals();
     $path = $request->getPathInfo(); // the URI path being requested
 
@@ -376,7 +379,7 @@ on that value. This can get ugly quickly::
     } elseif ($path == '/contact') {
         $response = new Response('Contact us');
     } else {
-        $response = new Response('Page not found.', Response::HTTP_NOT_FOUND);
+        $response = new Response('Page not found.', 404);
     }
     $response->send();
 
