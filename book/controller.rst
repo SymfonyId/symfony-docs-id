@@ -395,8 +395,13 @@ itself.
 
     Extending the base class is *optional* in Symfony; it contains useful
     shortcuts but nothing mandatory. You can also extend
-    :class:`Symfony\\Component\\DependencyInjection\\ContainerAware`. The service
-    container object will then be accessible via the ``container`` property.
+    :class:`Symfony\\Component\\DependencyInjection\\ContainerAware` or use
+    the class:`Symfony\\Component\\DependencyInjection\\ContainerAwareTrait` trait
+    (if you have PHP 5.4). The service container object will then be accessible
+    via the ``container`` property.
+
+.. versionadded:: 2.4
+    The ``ContainerAwareTrait`` was introduced in Symfony 2.4.
 
 .. note::
 
@@ -757,11 +762,14 @@ headers and content that's sent back to the client::
     use Symfony\Component\HttpFoundation\Response;
 
     // create a simple Response with a 200 status code (the default)
-    $response = new Response('Hello '.$name, 200);
+    $response = new Response('Hello '.$name, Response::HTTP_OK);
 
     // create a JSON-response with a 200 status code
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
+
+.. versionadded:: 2.4
+    Support for HTTP status code constants was introduced in Symfony 2.4.
 
 .. tip::
 
