@@ -50,38 +50,35 @@ mengembalikan ``Response`` object yang berisi informasi apapun yang diminta oleh
 .. index::
    single: Controller; Request-controller-response lifecycle
 
-Requests, Controller, Response Lifecycle
+Siklus Hidup Requests, Controller, Response
 ----------------------------------------
 
-Every request handled by a Symfony2 project goes through the same simple lifecycle.
-The framework takes care of the repetitive tasks and ultimately executes a
-controller, which houses your custom application code:
+Setiap request yang dihandle oleh Framework Symfony2 melewati siklus hidup yang sama.
+Symfony2 menangani tugas sama dan berulang sampai akhir memanggil controller yang berisi
+code program Anda untuk menangani suatu request. Untuk lebih jelasnya, berikut adalah penjelasan singkatnya:
 
-#. Each request is handled by a single front controller file (e.g. ``app.php``
-   or ``app_dev.php``) that bootstraps the application;
+#. Setiap request ditangani oleh sebuah front controller file (contoh : ``app.php`` atau ``app_dev.php``)
+   yang menjadi bootstrap bagi aplikasi Anda.
 
-#. The ``Router`` reads information from the request (e.g. the URI), finds
-   a route that matches that information, and reads the ``_controller`` parameter
-   from the route;
+#. ``Router`` membaca informasi dari sebuah request (contoh : URI), kemudian menemukan
+   sebuah route yang cocok dengan informasi tersebut, dan kemudian membaca parameter ``_controller`` dari route tersebut.
 
-#. The controller from the matched route is executed and the code inside the
-   controller creates and returns a ``Response`` object;
+#. ``Controller`` dari route yang cocok kemudian dieksekusi dan setelah itu, code program dalam controller
+   memproses request sampai akhirnya membuat dan mengembalikan ``Response`` object.
 
-#. The HTTP headers and content of the ``Response`` object are sent back to
-   the client.
+#. HTTP header dan isi dari ``Response`` object kemudian dikirim kembali ke client.
 
-Creating a page is as easy as creating a controller (#3) and making a route that
-maps a URL to that controller (#2).
+Membuat sebuah halaman adalah sama mudahnya dengan membuat sebuah controller (#3) and membuat route
+yang memetakan URL ke controller yang dituju (#2)
 
 .. note::
 
-    Though similarly named, a "front controller" is different from the
-    "controllers" talked about in this chapter. A front controller
-    is a short PHP file that lives in your web directory and through which
-    all requests are directed. A typical application will have a production
-    front controller (e.g. ``app.php``) and a development front controller
-    (e.g. ``app_dev.php``). You'll likely never need to edit, view or worry
-    about the front controllers in your application.
+    Walaupun bernama sama, "front controller" berbeda dengan "controller" yang
+    kita bicara pada bab ini. Front controller adalah sebuah file php yang ada di web root
+    (pada Symfony2 web root berada di folder web didalam folder symfony) dan melalui
+    front controller tersebutlah semua request diarahkan. Pada symfony2 kita memiliki 2 front controller
+    yaitu ``app.dev`` (untuk produksi) dan ``app_dev.php`` (untuk development). Anda tidak
+    perlu mengedit file ``app.dev`` atau ``app_dev.php`` sama sekali untuk aplikasi Anda.
 
 .. index::
    single: Controller; Simple example
