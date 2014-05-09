@@ -99,7 +99,7 @@ untuk mendefinisikan ``layout.html.twig`` sebagai template induk:
 
 .. code-block:: html+jinja
 
-    {# lokasi file : src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
+    {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
 
     {% block title "Halo " ~ name %}
@@ -135,62 +135,62 @@ seperti berikut:
         <h1>Halo Fabien!</h1>
     </div>
     
-Using Tags, Filters, and Functions
+Menggunakan Tag, Filter, dan Fungsi
 ----------------------------------
 
-One of the best feature of Twig is its extensibility via tags, filters, and
-functions. Take a look at the following sample template that uses filters
-extensively to modify the information before displaying it to the user:
+Salah satu kelebihan Twig adalah dukungannya untuk penambahan fungsi baik
+dengan tag, filter, ataupun fungsi. Perhatikan contoh berikut yang menunjukkan
+penggunaan berbagai filter untuk merubah data sebelum ditampilkan kepada user:
 
 .. code-block:: jinja
 
-    <h1>{{ article.title|trim|capitalize }}</h1>
+    <h1>{{ artikel.judul|trim|capitalize }}</h1>
 
-    <p>{{ article.content|striptags|slice(0, 1024) }}</p>
+    <p>{{ artikel.isi|striptags|slice(0, 1024) }}</p>
 
-    <p>Tags: {{ article.tags|sort|join(", ") }}</p>
+    <p>Tag: {{ artikel.tag|sort|join(", ") }}</p>
 
-    <p>Next article will be published on {{ 'next Monday'|date('M j, Y')}}</p>
+    <p>Artikel selanjutnya akan diterbitkan  {{ 'next Monday'|date('M j, Y')}}</p>
 
-Don't forget to check out the official `Twig documentation`_ to learn everything
-about filters, functions and tags.
+Jangan lupa untuk melihat `Dokumentasi resmi Twig`_ untuk mempelajari tag, filter 
+dan fungsi lebih lanjut.
 
-Including other Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Mengikutsertakan template yang lain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The best way to share a snippet of code between several templates is to create a
-new template fragment that can then be included from other templates.
+Cara terbaik untuk berbagi pakai potongan kode antara beberapa template adalah
+dengan membuat bagian template yang dapat diikutsertakan dari template yang lain.
 
-First, create an ``embedded.html.twig`` template:
+Misalnya kita buat template ``embedded.html.twig`` terlebih dahulu:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/embedded.html.twig #}
-    Hello {{ name }}
+    Halo {{ name }}
 
-And change the ``index.html.twig`` template to include it:
+Dan perbaiki template ``index.html.twig`` agar mengikutsertakan bagian ini:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
 
-    {# override the body block from embedded.html.twig #}
+    {# defisikan ulang blok body dengan embedded.html.twig #}
     {% block content %}
         {{ include("AcmeDemoBundle:Demo:embedded.html.twig") }}
     {% endblock %}
 
-Embedding other Controllers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Menampilkan output kontroller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-And what if you want to embed the result of another controller in a template?
-That's very useful when working with Ajax, or when the embedded template needs
-some variable not available in the main template.
+Bagaimana kalau kita ingin menampilkan output kontroller yang lain ?
+Hal ini sangat bermanfaat dalam Ajax, atau apabila template yang diikutsertakan
+membutuhkan variabel yang tidak tersedia dalam template utama.
 
-Suppose you've created a ``topArticlesAction`` controller method to display the
-most popular articles of your website. If you want to "render" the result of
-that method (e.g. ``HTML``) inside the ``index`` template, use the ``render``
-function:
+Misalkan kita telah membuat method ``topArticlesAction`` pada kontroller untuk
+menampilkan artikel website kita yang paling populer. Maka kita menggunakan fungsi
+``render`` untuk menampilkan output dari method ini, misalkan ``HTML``, didalam
+template ``index``.
 
 .. code-block:: jinja
 
