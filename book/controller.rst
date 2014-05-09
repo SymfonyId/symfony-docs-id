@@ -10,10 +10,10 @@ Controller
 Controller
 ==========
 
-Controller adalah sebuah fungsi PHP (method) yang berfungsi menangkap informasi dari sebuah HTTP request, 
-mengolahnya dan kemudian mengembalikannya sebagai HTTP response (Symfony2 ``Response`` object). 
-Response object dapat berupa/berisi HTML, XML, JSON, Gambar, redirect response, error response atau apapun 
-yang mungkin dapat Anda bayangkan. Controller berisi logic dari *program aplikasi* yang kamu 
+Controller adalah sebuah fungsi PHP (method) yang berfungsi menangkap informasi dari sebuah HTTP request,
+mengolahnya dan kemudian mengembalikannya sebagai HTTP response (Symfony2 ``Response`` object).
+Response object dapat berupa/berisi HTML, XML, JSON, Gambar, redirect response, error response atau apapun
+yang mungkin dapat Anda bayangkan. Controller berisi logic dari *program aplikasi* yang kamu
 butuhkan untuk membangun sebuah program dan kemudian mengembalikan sebuah response.
 
 Perhatikan contoh berikut:
@@ -27,28 +27,25 @@ Perhatikan contoh berikut:
 
 Program sederhana diatas akan mengembalikan response berupa text ``Hello Word``
 
-The goal of a controller is always the same: create and return a ``Response``
-object. Along the way, it might read information from the request, load a
-database resource, send an email, or set information on the user's session.
-But in all cases, the controller will eventually return the ``Response`` object
-that will be delivered back to the client.
+Tujuan akhir sebuah controller selalu sama yaitu membuat dan mengembalikan ``Response`` object.
+Sepanjang perjalanannya, controller mungkin membaca informasi dari sebuah request, mengambil data dari database,
+mengirim email, atau menge-set informasi ke session. Tapi dalam semua kasus diatas, controller akan
+pada akhirnya akan mengembalikan ``Response`` object yang akan dikirimkan kembali ke client.
 
-There's no magic and no other requirements to worry about! Here are a few
-common examples:
+Berikut adalah contoh umum untuk controller:
 
-* *Controller A* prepares a ``Response`` object representing the content
-  for the homepage of the site.
+* *Controller A* menyiapkan sebuah ``Response`` object yang mempresentasikan isi dari sebuah homepage.
 
-* *Controller B* reads the ``slug`` parameter from the request to load a
-  blog entry from the database and create a ``Response`` object displaying
-  that blog. If the ``slug`` can't be found in the database, it creates and
-  returns a ``Response`` object with a 404 status code.
+* *Controller B* membaca parameter dari request untuk mengambil postingan blog dari database dan kemudian
+  membuat ``Response`` object untuk menampilkan postingan tersebut. Jika parameter tersebut tidak
+  ditemukan di database, Controller membuat dan mengembalikan sebuah ``Response`` object dengan status 404 (content/resource tidak ditemukan)
 
-* *Controller C* handles the form submission of a contact form. It reads
-  the form information from the request, saves the contact information to
-  the database and emails the contact information to the webmaster. Finally,
-  it creates a ``Response`` object that redirects the client's browser to
-  the contact form "thank you" page.
+* *Controller C* menangani kontak form. Dia membaca informasi dari form yang dikirimkan, menyimpannya ke database
+  dan mengirimkan email ke webmaster tentang informasi dari kontak form tersebut. Dan pada akhirnya, Controller akan
+  membuat ``Response`` object yang mengarahkan client (browser) ke halaman "terima kasih" pada kontak form.
+
+Dari penjelasan diatas, semua Controller selalu harus mengembalikan sebuah ``Response`` object. Inilah tujuan utama sebuah Controller, yaitu
+mengembalikan ``Response`` object yang berisi informasi apapun yang diminta oleh client.
 
 .. index::
    single: Controller; Request-controller-response lifecycle
