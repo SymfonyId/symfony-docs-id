@@ -18,15 +18,16 @@ Template Twig berupa sebuah file yang dapat digunakan untuk menghasilkan berbaga
 macam tipe dokumen (HTML, CSS, JavaScript, XML, CSV, LaTeX, ...). Elemen khusus
 Twig ditandai secara khusus dengan menggunakan karakter pemisah berikut ini:
 
-* ``{{ ... }}``: prints the content of a variable or the result of an expression;
+* ``{{ ... }}``: mencetak isi variabel atau hasil ekspresi;
 
-* ``{% ... %}``: controls the logic of the template; it is used for example to
-  execute ``for`` loops and ``if`` statements;
+* ``{% ... %}``: mengatur alur berpikir template, misalnya untuk menjalankan
+  perintah perulangan ``for`` dan ``if``;
 
-* ``{# ... #}``: allows including comments inside templates.
+* ``{# ... #}``: untuk menambahkan komentar di dalam template.
 
-Below is a minimal template that illustrates a few basics, using two variables
-``page_title`` and ``navigation``, which would be passed into the template:
+Berikut ini contoh penggunaan ketiga perintah di atas dalam template sederhana
+dengan dua variabel ``page_title`` dan ``navigation`` yang sudah diberikan ke
+template:
 
 .. code-block:: html+jinja
 
@@ -46,70 +47,73 @@ Below is a minimal template that illustrates a few basics, using two variables
         </body>
     </html>
 
-To render a template in Symfony, use the ``render`` method from within a controller
-and pass the variables needed as an array using the optional second argument::
+Untuk menampilkan template dalam Symfony, gunakan fungsi ``render`` di dalam
+kontroller dan berikan variabel yang dibutuhkan sebagai array
+di parameter ke dua yang bersifat opsional:
+
+.. code-block:: jinja
 
     $this->render('AcmeDemoBundle:Demo:hello.html.twig', array(
         'name' => $name,
     ));
 
-Variables passed to a template can be strings, arrays, or even objects. Twig
-abstracts the difference between them and lets you access "attributes" of a
-variable with the dot (``.``) notation. The following code listing shows how to
-display the content of a variable depending on the type of the variable passed
-by the controller:
+Variabel yang diberikan ke template dapat berupa string, array, atau bahkan
+berupa objek. Twig sudah membuat fungsi abstrak untuk menyamakan perbedaan
+diantara tiga tipe tersebut sehingga kita bisa mengakses atribut dari variabel
+dengan notasi (``.``) dot. Kode berikut ini memberi contoh cara menampilkan
+isi variabel sesuai tipe variabel yang diberikan dari kontroller:
 
 .. code-block:: jinja
 
-    {# 1. Simple variables #}
+    {# 1. Variabel sederhana #}
     {# array('name' => 'Fabien') #}
     {{ name }}
 
-    {# 2. Arrays #}
+    {# 2. Array #}
     {# array('user' => array('name' => 'Fabien')) #}
     {{ user.name }}
 
-    {# alternative syntax for arrays #}
+    {# sintak lain untuk array #}
     {{ user['name'] }}
 
-    {# 3. Objects #}
+    {# 3. Objek #}
     {# array('user' => new User('Fabien')) #}
     {{ user.name }}
     {{ user.getName }}
 
-    {# alternative syntax for objects #}
+    {# sintak lain untuk objek #}
     {{ user.name() }}
     {{ user.getName() }}
 
-Decorating Templates
+Menghias Template
 --------------------
 
-More often than not, templates in a project share common elements, like the
-well-known header and footer. Twig solves this problem elegantly with a concept
-called "template inheritance". This feature allows you to build a base "layout"
-template that contains all the common elements of your site and defines "blocks"
-that child templates can override.
+Template dalam sebuah projek biasanya menggunakan element umum yang sama, seperti
+elemen header dan footer. Twig mengatasi hal ini secara elegan dengan konsep 
+"Pewarisan Template". Konsep ini memungkinkan kita untuk membuat sebuah template
+dasar yang mengandung semua elemen umum dari web kita dengan beberapa definisi
+"blok", dimana blok ini dapat diganti isinya dari template anak.
 
-The ``hello.html.twig`` template uses the ``extends`` tag to indicate that it
-inherits from the common ``layout.html.twig`` template:
+Berikut ini contoh template ``hello.html.twig`` yang menggunakan tag ``extends``
+untuk mendefinisikan ``layout.html.twig`` sebagai template induk:
 
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
 
-    {% block title "Hello " ~ name %}
+    {% block title "Halo " ~ name %}
 
     {% block content %}
-        <h1>Hello {{ name }}!</h1>
+        <h1>Halo {{ name }}!</h1>
     {% endblock %}
 
-The ``AcmeDemoBundle::layout.html.twig`` notation sounds familiar, doesn't it?
-It is the same notation used to reference a regular template. The ``::`` part
-simply means that the controller element is empty, so the corresponding file
-is directly stored under the ``Resources/views/`` directory of the bundle.
+Pasti kita sudah terbiasa dengan kode ``AcmeDemoBundle::layout.html.twig``.
+Kode ini digunakan untuk mereferensikan lokasi file template. Bagian ``::`` 
+menandakan bahwa tidak ada nama kontroller di lokasi template, jadi file tersebut
+berada tepat di folder ``Resources/views/`` dari folder bundle.
 
-Now, simplify the ``layout.html.twig`` template:
+Sekarang kita sederhanakan lagi file template ``layout.html.twig`` sebagai berikut:
 
 .. code-block:: jinja
 
@@ -119,67 +123,74 @@ Now, simplify the ``layout.html.twig`` template:
         {% endblock %}
     </div>
 
-The ``{% block %}`` tags tell the template engine that a child template may
-override those portions of the template. In this example, the ``hello.html.twig``
-template overrides the ``content`` block, meaning that the "Hello Fabien" text
-is rendered inside the ``<div>`` element.
-
-Using Tags, Filters, and Functions
-----------------------------------
-
-One of the best feature of Twig is its extensibility via tags, filters, and
-functions. Take a look at the following sample template that uses filters
-extensively to modify the information before displaying it to the user:
+Kode tag ``{% block %}`` menandakan bahwa bagian ini bisa didefinisikan ulang
+oleh template anak. Pada contoh di atas, file template ``hello.html.twig``
+mendefinisikan ulang bagian ``content``. Apabila variabel ``name`` diberi nilai
+``Fabien``, berarti tulisan "Halo Fabien!" akan ditampilkan didalam elemen ``<div>``
+seperti berikut:
 
 .. code-block:: jinja
 
-    <h1>{{ article.title|trim|capitalize }}</h1>
+    <div>
+        <h1>Halo Fabien!</h1>
+    </div>
+    
+Menggunakan Tag, Filter, dan Fungsi
+----------------------------------
 
-    <p>{{ article.content|striptags|slice(0, 1024) }}</p>
+Salah satu kelebihan Twig adalah dukungannya untuk penambahan fungsi baik
+dengan tag, filter, ataupun fungsi. Perhatikan contoh berikut yang menunjukkan
+penggunaan berbagai filter untuk merubah data sebelum ditampilkan kepada user:
 
-    <p>Tags: {{ article.tags|sort|join(", ") }}</p>
+.. code-block:: jinja
 
-    <p>Next article will be published on {{ 'next Monday'|date('M j, Y')}}</p>
+    <h1>{{ artikel.judul|trim|capitalize }}</h1>
 
-Don't forget to check out the official `Twig documentation`_ to learn everything
-about filters, functions and tags.
+    <p>{{ artikel.isi|striptags|slice(0, 1024) }}</p>
 
-Including other Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~
+    <p>Tag: {{ artikel.tag|sort|join(", ") }}</p>
 
-The best way to share a snippet of code between several templates is to create a
-new template fragment that can then be included from other templates.
+    <p>Artikel selanjutnya akan diterbitkan  {{ 'next Monday'|date('M j, Y')}}</p>
 
-First, create an ``embedded.html.twig`` template:
+Jangan lupa untuk melihat `Dokumentasi resmi Twig`_ untuk mempelajari tag, filter 
+dan fungsi lebih lanjut.
+
+Mengikutsertakan template yang lain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Cara terbaik untuk berbagi pakai potongan kode antara beberapa template adalah
+dengan membuat bagian template yang dapat diikutsertakan dari template yang lain.
+
+Misalnya kita buat template ``embedded.html.twig`` terlebih dahulu:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/embedded.html.twig #}
-    Hello {{ name }}
+    Halo {{ name }}
 
-And change the ``index.html.twig`` template to include it:
+Dan perbaiki template ``index.html.twig`` agar mengikutsertakan bagian ini:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
 
-    {# override the body block from embedded.html.twig #}
+    {# defisikan ulang blok body dengan embedded.html.twig #}
     {% block content %}
         {{ include("AcmeDemoBundle:Demo:embedded.html.twig") }}
     {% endblock %}
 
-Embedding other Controllers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Menampilkan output kontroller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-And what if you want to embed the result of another controller in a template?
-That's very useful when working with Ajax, or when the embedded template needs
-some variable not available in the main template.
+Bagaimana kalau kita ingin menampilkan output kontroller yang lain ?
+Hal ini sangat bermanfaat dalam Ajax, atau apabila template yang diikutsertakan
+membutuhkan variabel yang tidak tersedia dalam template utama.
 
-Suppose you've created a ``topArticlesAction`` controller method to display the
-most popular articles of your website. If you want to "render" the result of
-that method (e.g. ``HTML``) inside the ``index`` template, use the ``render``
-function:
+Misalkan kita telah membuat method ``topArticlesAction`` pada kontroller untuk
+menampilkan artikel website kita yang paling populer. Maka kita menggunakan fungsi
+``render`` untuk menampilkan output dari method ini, misalkan ``HTML``, didalam
+template ``index``.
 
 .. code-block:: jinja
 
