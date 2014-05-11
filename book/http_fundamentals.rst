@@ -158,51 +158,54 @@ jenis-jenis media yang lazim dipakai dapat ditemukan di artikel wikipedia
 Banyak tajuk-tajuk lain tersedia, sebagiannya sangatlah digdaya. Misalnya, beberapa
 tajuk dapat digunakan untuk membuat sistem tembolok (*cache*) yang ampuh.
 
-Requests, Responses and Web Development
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Permintaan, Jawaban, dan Pengembangan Web
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This request-response conversation is the fundamental process that drives all
-communication on the web. And as important and powerful as this process is,
-it's inescapably simple.
+Percakapan permintaan-jawaban ini adalah proses dasar yang menggerakkan
+semua komunikasi di web. Sebagaimana penting dan digdayanya proses ini,
+ia juga sangat sederhana.
 
-The most important fact is this: regardless of the language you use, the
-type of application you build (web, mobile, JSON API), or the development
-philosophy you follow, the end goal of an application is **always** to understand
-each request and create and return the appropriate response.
+Kenyataan terpenting adalah: tanpa memandang bahasa program yang anda gunakan,
+aplikasi yang anda kembangkan (web, mobile, JSON API), ataupun falsafah
+pengembangan yang anda ikuti, tujuan akhir dari suatu aplikasi
+adalah **selalu** berusaha mengerti setiap permintaan dan membuat
+serta memberikan jawaban yang sesuai.
 
-Symfony is architected to match this reality.
+Symfony dirancang agar sesuai dengan kenyataan ini.
 
 .. tip::
 
-    To learn more about the HTTP specification, read the original `HTTP 1.1 RFC`_
-    or the `HTTP Bis`_, which is an active effort to clarify the original
-    specification. A great tool to check both the request and response headers
-    while browsing is the `Live HTTP Headers`_ extension for Firefox.
+    Untuk mempelajari lebih lanjut mengenai spesifikasi HTTP, bacalah dokumen
+    asli `HTTP 1.1 RFC`_ atau `HTTP Bis`_, yang merupakan upaya aktif untuk
+    menerangkan spesifikasi asli. Suatu alat cemerlang untuk memeriksa tajuk
+    permintaan dan jawaban ketika sedang meramban web adalah ekstensi
+    `Live HTTP Headers`_ untuk Firefox.
 
 .. index::
-   single: Symfony2 Fundamentals; Requests and responses
+   single: Dasar-dasar Symfony2; Permintaan dan jawaban
 
-Requests and Responses in PHP
+Permintaan dan Jawaban di PHP
 -----------------------------
 
-So how do you interact with the "request" and create a "response" when using
-PHP? In reality, PHP abstracts you a bit from the whole process::
+Jadi bagaimana anda berinteraksi dengan "permintaan" dan membuat "jawaban"
+ketika menggunakan PHP? Kenyataannya, PHP mengintisarikannya untuk anda dari
+keseluruhan proses::
 
     $uri = $_SERVER['REQUEST_URI'];
     $foo = $_GET['foo'];
 
     header('Content-type: text/html');
-    echo 'The URI requested is: '.$uri;
-    echo 'The value of the "foo" parameter is: '.$foo;
+    echo 'URI yang diminta adalah: '.$uri;
+    echo 'Nilai dari parameter "foo" adalah: '.$foo;
 
-As strange as it sounds, this small application is in fact taking information
-from the HTTP request and using it to create an HTTP response. Instead of
-parsing the raw HTTP request message, PHP prepares superglobal variables
-such as ``$_SERVER`` and ``$_GET`` that contain all the information from
-the request. Similarly, instead of returning the HTTP-formatted text response,
-you can use the ``header()`` function to create response headers and simply
-print out the actual content that will be the content portion of the response
-message. PHP will create a true HTTP response and return it to the client:
+Seaneh terdengarnya, aplikasi kecil ini nyatanya mengambil informasi dari
+permintaan HTTP dan menggunakannya untuk membuat jawaban HTTP. Alih-alih
+mengurai pesan mentah permintaan HTTP, PHP menyiapkan variabel superglobal
+seperti ``$_SERVER`` dan ``$_GET`` yang berisi seluruh informasi dari permintaan
+tersebut. Serupa dengan itu, alih-alih memberikan jawaban teks terformat HTTP,
+anda dapat menggunakan fungsi ``header()`` untuk membuat tajuk jawaban dan
+menampilkan isi sebenarnya yang akan menjadi bagian dari isi pesan jawaban.
+PHP akan membuat jawaban HTTP sejati dan memberikannya ke klien:
 
 .. code-block:: text
 
@@ -211,98 +214,104 @@ message. PHP will create a true HTTP response and return it to the client:
     Server: Apache/2.2.17 (Unix)
     Content-Type: text/html
 
-    The URI requested is: /testing?foo=symfony
-    The value of the "foo" parameter is: symfony
+    URI yang diminta adalah: /tes?foo=symfony
+    Nilai dari parameter "foo" adalah: symfony
 
-Requests and Responses in Symfony
+Permintaan dan Jawaban di Symfony
 ---------------------------------
 
-Symfony provides an alternative to the raw PHP approach via two classes that
-allow you to interact with the HTTP request and response in an easier way.
-The :class:`Symfony\\Component\\HttpFoundation\\Request` class is a simple
-object-oriented representation of the HTTP request message. With it, you
-have all the request information at your fingertips::
+Symfony menyediakan cara alternatif terhadap pendekatan mentah PHP diatas
+menggunakan dua class yang membuat anda dapat berinteraksi dengan permintaan
+dan jawaban HTTP dengan lebih mudah. Class
+:class:`Symfony\\Component\\HttpFoundation\\Request` adalah perwakilan lugas
+berorientasi-objek dari suatu pesan jawaban HTTP. Dengannya, anda memegang
+seluruh informasi permintaan di ujung jari anda::
 
     use Symfony\Component\HttpFoundation\Request;
 
     $request = Request::createFromGlobals();
 
-    // the URI being requested (e.g. /about) minus any query parameters
+    // URI yang sedang diminta (misal /tentangkami) tanpa parameter query apapun
     $request->getPathInfo();
 
-    // retrieve GET and POST variables respectively
+    // secara berurutan mengambil variabel GET dan POST
     $request->query->get('foo');
-    $request->request->get('bar', 'default value if bar does not exist');
+    $request->request->get('bar', 'nilai patokan jika variabel bar tak berwujud');
 
-    // retrieve SERVER variables
+    // mengambil variabel-variabel SERVER
     $request->server->get('HTTP_HOST');
 
-    // retrieves an instance of UploadedFile identified by foo
+    // mengambil petikan UploadedFile yang diidentifikasi oleh variabel foo
     $request->files->get('foo');
 
-    // retrieve a COOKIE value
+    // mengambil suatu nilai COOKIE
     $request->cookies->get('PHPSESSID');
 
-    // retrieve an HTTP request header, with normalized, lowercase keys
+    // mengambil tajuk permintaan HTTP, ternormalisasi, berhuruf kecil
     $request->headers->get('host');
     $request->headers->get('content_type');
 
     $request->getMethod();          // GET, POST, PUT, DELETE, HEAD
-    $request->getLanguages();       // an array of languages the client accepts
+    $request->getLanguages();       // array (tumpukan) bahasa yang dapat diterima klien
 
-As a bonus, the ``Request`` class does a lot of work in the background that
-you'll never need to worry about. For example, the ``isSecure()`` method
-checks the *three* different values in PHP that can indicate whether or not
-the user is connecting via a secured connection (i.e. HTTPS).
+Sebagai hadiah, class ``Request`` benar-benar melakukan banyak pekerjaan
+di latar belakang di mana anda tak perlu khawatir tentang itu. Misalnya,
+metode ``isSecure()`` memeriksa *tiga* nilai berbeda di PHP yang dapat
+menunjukkan apakah pengguna terhubung menggunakan koneksi aman (misalnya HTTPS)
+atau tidak.
 
-.. sidebar:: ParameterBags and Request Attributes
+.. sidebar:: Atribut-atribut ParameterBag dan Request
 
-    As seen above, the ``$_GET`` and ``$_POST`` variables are accessible via
-    the public ``query`` and ``request`` properties respectively. Each of
-    these objects is a :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`
-    object, which has methods like
+    Seperti terlihat di atas, variabel ``$_GET`` dan ``$_POST`` dapat diakses
+    menggunakan properti padanan ``query`` dan ``request``. Masing-masingnya
+    adalah objek :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`,
+    yang memiliki metode-metode seperti
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::get`,
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::has`,
-    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` and more.
-    In fact, every public property used in the previous example is some instance
-    of the ParameterBag.
+    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all`
+    dan banyak lainnya.
+    Bahkan, setiap properti publik yang digunakan di contoh sebelumnya adalah
+    petikan ParameterBag.
 
     .. _book-fundamentals-attributes:
 
-    The Request class also has a public ``attributes`` property, which holds
-    special data related to how the application works internally. For the
-    Symfony2 framework, the ``attributes`` holds the values returned by the
-    matched route, like ``_controller``, ``id`` (if you have an ``{id}``
-    wildcard), and even the name of the matched route (``_route``). The
-    ``attributes`` property exists entirely to be a place where you can
-    prepare and store context-specific information about the request.
+    Class Request juga memiliki properti ``attributes``, yang menampung
+    data khusus terkait bagaimana aplikasi bekerja secara internal. Untuk
+    framework Symfony2, ``attributes`` menampung nilai-nilai yang dikembalikan
+    oleh rute bersesuaian, seperti ``_controller``, ``id`` (jika anda mempunyai
+    wildcard ``{id}``), dan bahkan nama dari rute yang sesuai tersebut (``_route``).
+    Properti ``attributes`` secara keseluruhan adalah untuk menjadi tempat
+    di mana anda dapat menyiapkan dan menyimpan informasi spesifik-konteks
+    mengenai suatu permintaan.
 
-Symfony also provides a ``Response`` class: a simple PHP representation of
-an HTTP response message. This allows your application to use an object-oriented
-interface to construct the response that needs to be returned to the client::
+Symfony juga menyediakan class ``Response``: representasi PHP sederhana untuk
+pesan jawaban HTTP. Ini membuat aplikasi anda dapat menggunakan antarmuka
+berorientasi-objek untuk membentuk jawaban yang diperlukan untuk dikirim
+ke klien::
 
     use Symfony\Component\HttpFoundation\Response;
     $response = new Response();
 
-    $response->setContent('<html><body><h1>Hello world!</h1></body></html>');
+    $response->setContent('<html><body><h1>Halo dunia!</h1></body></html>');
     $response->setStatusCode(200);
     $response->headers->set('Content-Type', 'text/html');
 
-    // prints the HTTP headers followed by the content
+    // cetak tajuk HTTP diikuti oleh isinya
     $response->send();
 
-If Symfony offered nothing else, you would already have a toolkit for easily
-accessing request information and an object-oriented interface for creating
-the response. Even as you learn the many powerful features in Symfony, keep
-in mind that the goal of your application is always *to interpret a request
-and create the appropriate response based on your application logic*.
+Andaipun Symfony tak menawarkan hal lain lagi, anda sudah memiliki perkakas
+untuk mengakses dengan mudah informasi permintaan dan antarmuka berorientasi-objek
+untuk membuat jawaban. Bahkan jika anda mempelajari banyak fitur-fitur digdaya di
+Symfony, camkan dalam benak bahwa tujuan aplikasi anda adalah *menerjemahkan
+suatu permintaan dan membuat jawaban yang sesuai berdasarkan logika aplikasi
+anda*.
 
 .. tip::
 
-    The ``Request`` and ``Response`` classes are part of a standalone component
-    included with Symfony called HttpFoundation. This component can be
-    used entirely independently of Symfony and also provides classes for handling
-    sessions and file uploads.
+    Class ``Request`` dan ``Response`` adalah bagian dari komponen mandiri
+    yang disertakan dalam Symfony yang disebut HttpFoundation. Komponen ini
+    dapat sepenuhnya digunakan terpisah dari Symfony dan ia juga menyediakan
+    class untuk mengelola session dan pengunggahan berkas.
 
 The Journey from the Request to the Response
 --------------------------------------------
