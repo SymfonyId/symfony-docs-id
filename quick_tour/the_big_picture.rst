@@ -42,48 +42,51 @@ meminta anda menyediakan pilihan konfigurasi untuk proyek anda. Untuk proyek
 pertama ini, anda bisa mengabaikan proses konfigurasi dengan menekan
 ``<Enter>`` berkali-kali.
 
-Running Symfony2
-----------------
+Menjalankan Symfony2
+--------------------
 
-Before running Symfony2 for the first time, execute the following command to
-make sure that your system meets all the technical requirements:
+Sebelum menjalankan Symfony2 untuk pertama kalinya, jalankan perintah berikut
+untuk memastikan bahwa sistem anda memenuhi semua kebutuhan teknis:
 
 .. code-block:: bash
 
-    $ cd myproject/
+    $ cd proyekku/
     $ php app/check.php
 
-Fix any error reported by the command and then use the PHP built-in web server
-to run Symfony:
+Perbaiki segala kesalahan yang dilaporkan oleh perintah tersebut dan kemudian
+gunakan server internal PHP untuk menjalankan Symfony2:
 
 .. code-block:: bash
 
     $ php app/console server:run
 
-If you get the error `There are no commands defined in the "server" namespace.`,
-then you are probably using PHP 5.3. That's ok! But the built-in web server is
-only available for PHP 5.4.0 or higher. If you have an older version of PHP or
-if you prefer a traditional web server such as Apache or Nginx, read the
-:doc:`/cookbook/configuration/web_server_configuration` article.
+Jika anda mendapat pesan kesalahan `There are no commands defined in the
+"server" namespace.`,
+kemungkinan anda masih menggunakan PHP versi 5.3. Tidak masalah!Hanya saja
+server bawaan PHP membutuhkan minimal versi 5.4.0. Jika anda belum memerlukan
+pembaruan ke versi terbaru, atau lebih suka menggunakan server pihak ketiga
+seperti Apache atau Nginx, silakan baca artikel
+:doc:`/cookbook/configuration/web_server_configuration`.
 
-Open your browser and access the ``http://localhost:8000`` URL to see the
-Welcome page of Symfony2:
+Jalankan pengaya anda dan buka alamat ``http://localhost:8000`` untuk
+menampilkan laman `Symfony2 Welcome Page`:
 
 .. image:: /images/quick_tour/welcome.png
    :align: center
    :alt:   Symfony2 Welcome Page
 
-Understanding the Fundamentals
-------------------------------
+Memahami Dasar-Dasarnya
+-----------------------
 
-One of the main goals of a framework is to keep your code organized and to allow
-your application to evolve easily over time by avoiding the mixing of database
-calls, HTML tags and business logic in the same script. To achieve this goal
-with Symfony, you'll first need to learn a few fundamental concepts and terms.
+Salah satu tujuan utama sebuah framework adalah membantu anda mengorganisasikan
+kode, agar aplikasi anda bisa dikembangkan dengan mudah di masa depan.  Ini
+dimungkinkan dengan memisahkan kode-kode sesuai fungsinya. Seperti akses
+database, tag HTML, dan logika bisnis. Untuk dapat melakukan ini di Symfony,
+anda harus memahami beberapa konsep dasar dan istilah-istilah yang digunakan.
 
-Symfony comes with some sample code that you can use to learn more about its
-main concepts. Go to the following URL to be greeted by Symfony2 (replace
-*Fabien* with your first name):
+Symfony menyertakan beberapa contoh kode yang bisa anda gunakan untuk memahami
+konsep ini. Sila buka URL berikut untuk menampilkan sambutan Symfony2 (ganti
+*Fabien* dengan nama anda).
 
 .. code-block:: text
 
@@ -92,24 +95,25 @@ main concepts. Go to the following URL to be greeted by Symfony2 (replace
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
 
-What's going on here? Have a look at each part of the URL:
+Bagaimana ini terjadi? Perhatikan bagian-bagian dari URL tersebut:
 
-* ``app_dev.php``: This is a :term:`front controller`. It is the unique entry
-  point of the application and it responds to all user requests;
+* ``app_dev.php``: Ini adalah :term:`front controller`. Ia berfunsi sebagai
+  titik masuk di aplikasi dan bertugas menjawab semua permintaan pengguna;
 
-* ``/demo/hello/Fabien``: This is the *virtual path* to the resource the user
-  wants to access.
+* ``/demo/hello/Fabien``: Ini adalah *alur virtual* menuju sumberdaya yang
+  diminta pengguna.
 
-Your responsibility as a developer is to write the code that maps the user's
-*request* (``/demo/hello/Fabien``) to the *resource* associated with it
-(the ``Hello Fabien!`` HTML page).
+Tanggung jawab anda sebagai pengembang adalah untuk menulis kode yang akan
+memetakan *permintaan* (``/demo/hello/Fabien``) ke *sumber daya* yang
+diasosiasikan dengan permintaan tersebut (lama HTML ``Hello Fabien!``).
 
 Routing
 ~~~~~~~
 
-Symfony2 routes the request to the code that handles it by matching the
-requested URL (i.e. the virtual path) against some configured paths. The demo
-paths are defined in the ``app/config/routing_dev.yml`` configuration file:
+Symfony2 mengarahkan permintaan ke kode yang bertugas menangani permintaan
+tersebut dengan membaca pola URL (alur virtual) dan membandingkannya dengan
+alur yang sudah ditetapkan. Alur di demo diatas didefinisikan di berkas
+``app/config/routing_dev.yml`` seperti ini: 
 
 .. code-block:: yaml
 
